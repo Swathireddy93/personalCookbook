@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "turmeric-ginger-drink",
+    "title": "Morning Turmeric Ginger Drink",
+    "ritual": "morning",
+    "order": 3,
+    "consumedAt": "7:15 AM",
+    "prepTime": "5 minutes",
+    "image": "https://images.unsplash.com/photo-1604908812868-0f0fca982ad6?q=80&w=1600&auto=format&fit=crop",
+    "summary": "A spicy anti-inflammatory drink built around turmeric, ginger, lemon, and black pepper.",
+    "diet": ["Vegan", "Low Carb"],
+    "goals": ["Recovery", "Gut Health", "Immunity"],
+    "ingredients": [
+      {
+        "name": "Turmeric",
+        "nutrition": "Curcuminoids, manganese",
+        "why": "The signature anti-inflammatory ingredient.",
+        "rationale": "Curcumin is studied for inflammatory pathways, though bioavailability is a known limitation."
+      },
+      {
+        "name": "Black Pepper",
+        "nutrition": "Piperine",
+        "why": "Included to improve curcumin absorption.",
+        "rationale": "Piperine can increase curcumin bioavailability by slowing metabolism."
+      }
+    ],
+    "benefits": [
+      {
+        "label": "Anti-inflammatory",
+        "icon": "inflammation",
+        "detail": "Curcumin and gingerols are studied for inflammatory pathways."
+      }
+    ],
+    "science": {
+      "mechanism": "Curcuminoids influence inflammatory signaling, while piperine may increase curcumin exposure.",
+      "summary": "Black pepper contains piperine, which may increase bioavailability of curcumin.",
+      "takeaways": ["Use a tiny pinch of pepper.", "Pair with a little fat when possible."],
+      "strength": "Moderate"
+    },
+    "prep": [
+      {
+        "title": "Boil water",
+        "body": "Bring water to a gentle simmer."
+      }
+    ],
+    "notes": "I've noticed improved digestion when consuming this before breakfast."
+  }
+]

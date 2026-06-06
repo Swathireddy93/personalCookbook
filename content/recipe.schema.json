@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ritual Recipe",
+  "type": "object",
+  "required": [
+    "slug",
+    "title",
+    "ritual",
+    "order",
+    "consumedAt",
+    "prepTime",
+    "image",
+    "ingredients",
+    "benefits",
+    "science",
+    "prep",
+    "notes"
+  ],
+  "properties": {
+    "slug": { "type": "string" },
+    "title": { "type": "string" },
+    "ritual": { "enum": ["morning", "afternoon", "evening", "weekly", "seasonal"] },
+    "order": { "type": "number" },
+    "consumedAt": { "type": "string" },
+    "prepTime": { "type": "string" },
+    "image": { "type": "string" },
+    "summary": { "type": "string" },
+    "diet": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "goals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "nutrition", "why", "rationale"],
+        "properties": {
+          "name": { "type": "string" },
+          "nutrition": { "type": "string" },
+          "why": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "icon", "detail"],
+        "properties": {
+          "label": { "type": "string" },
+          "icon": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    },
+    "science": {
+      "type": "object",
+      "required": ["mechanism", "summary", "takeaways", "strength"],
+      "properties": {
+        "mechanism": { "type": "string" },
+        "summary": { "type": "string" },
+        "takeaways": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "strength": { "enum": ["Strong", "Moderate", "Emerging"] }
+      }
+    },
+    "prep": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "body"],
+        "properties": {
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "image": { "type": "string" }
+        }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

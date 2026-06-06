@@ -1,0 +1,726 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "SF Pro Display", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Optima", "Avenir Next", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --background: 38 42% 94%;
+  --foreground: 30 28% 13%;
+  --card: 42 45% 97%;
+  --card-foreground: 30 28% 13%;
+  --primary: 126 24% 29%;
+  --primary-foreground: 40 46% 96%;
+  --secondary: 24 57% 78%;
+  --secondary-foreground: 29 31% 15%;
+  --muted: 39 29% 87%;
+  --muted-foreground: 31 17% 42%;
+  --accent: 44 72% 72%;
+  --accent-foreground: 29 31% 15%;
+  --border: 35 24% 77%;
+  --input: 35 24% 77%;
+  --ring: 126 24% 29%;
+}
+
+.dark {
+  --background: 31 26% 9%;
+  --foreground: 42 35% 91%;
+  --card: 30 22% 13%;
+  --card-foreground: 42 35% 91%;
+  --primary: 103 24% 64%;
+  --primary-foreground: 31 26% 9%;
+  --secondary: 22 38% 27%;
+  --secondary-foreground: 42 35% 91%;
+  --muted: 32 18% 18%;
+  --muted-foreground: 38 18% 69%;
+  --accent: 43 58% 56%;
+  --accent-foreground: 31 26% 9%;
+  --border: 31 18% 26%;
+  --input: 31 18% 26%;
+  --ring: 103 24% 64%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  background-image:
+    linear-gradient(90deg, rgba(78, 61, 39, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(78, 61, 39, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.glass {
+  background: color-mix(in srgb, hsl(var(--card)) 78%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.timeline-line {
+  background: linear-gradient(180deg, #4e6f43, #d5a442 52%, #b45d3d);
+}
+
+.photo-edge {
+  box-shadow:
+    0 24px 70px rgba(48, 34, 20, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.rustic-rule {
+  background: linear-gradient(90deg, transparent, rgba(181, 255, 224, 0.68), transparent);
+}
+
+.ritual-title {
+  color: rgba(231, 255, 244, 0.28);
+  font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(6.2rem, 15vw, 15.5rem);
+  font-weight: 300;
+  letter-spacing: -0.075em;
+  line-height: 0.82;
+  text-shadow:
+    0 0 64px rgba(180, 255, 223, 0.1),
+    0 0 140px rgba(180, 255, 223, 0.06);
+}
+
+.home-copy {
+  color: rgba(232, 255, 244, 0.68);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.02rem, 1.25vw, 1.22rem);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.72;
+}
+
+.home-copy--secondary {
+  color: rgba(232, 255, 244, 0.5);
+  font-size: clamp(0.94rem, 1.05vw, 1.06rem);
+}
+
+.about-heading {
+  color: rgba(248, 255, 252, 0.9);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.35rem, 4.6vw, 4.25rem);
+  font-weight: 240;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.section-heading {
+  color: rgba(248, 255, 252, 0.88);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.6rem, 5.2vw, 5rem);
+  font-weight: 230;
+  letter-spacing: -0.075em;
+  line-height: 0.96;
+}
+
+.ambience-layer {
+  transition: background 700ms ease, opacity 700ms ease;
+}
+
+.ambience-morning .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 70%, rgba(255, 191, 101, 0.18), transparent 31%),
+    radial-gradient(circle at 70% 28%, rgba(183, 255, 224, 0.24), transparent 33%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.96) 0%, rgba(15, 25, 17, 0.58) 42%, rgba(4, 7, 6, 0.42) 100%);
+}
+
+.ambience-noon .ambience-layer {
+  background:
+    radial-gradient(circle at 28% 64%, rgba(217, 255, 236, 0.18), transparent 31%),
+    radial-gradient(circle at 76% 34%, rgba(115, 209, 163, 0.32), transparent 36%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.94) 0%, rgba(8, 30, 22, 0.5) 44%, rgba(4, 7, 6, 0.48) 100%);
+}
+
+.ambience-evening .ambience-layer {
+  background:
+    radial-gradient(circle at 30% 72%, rgba(255, 134, 72, 0.19), transparent 32%),
+    radial-gradient(circle at 74% 36%, rgba(115, 209, 163, 0.2), transparent 35%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.96) 0%, rgba(31, 15, 10, 0.55) 45%, rgba(4, 7, 6, 0.54) 100%);
+}
+
+.ambience-night .ambience-layer {
+  background:
+    radial-gradient(circle at 29% 70%, rgba(97, 150, 255, 0.14), transparent 31%),
+    radial-gradient(circle at 74% 30%, rgba(183, 255, 224, 0.12), transparent 36%),
+    linear-gradient(90deg, rgba(2, 4, 8, 0.98) 0%, rgba(3, 9, 18, 0.66) 45%, rgba(2, 4, 8, 0.62) 100%);
+}
+
+.day-part {
+  display: block;
+  min-height: 13rem;
+  border: 1px solid rgba(225, 255, 241, 0.1);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.28);
+  color: rgba(232, 255, 244, 0.66);
+  padding: 1.35rem;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    background 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease;
+  backdrop-filter: blur(18px);
+}
+
+.day-part:hover,
+.day-part--active {
+  border-color: rgba(188, 255, 222, 0.34);
+  background: rgba(255, 255, 255, 0.075);
+  color: rgba(248, 255, 252, 0.92);
+  transform: translateY(-2px);
+}
+
+.day-part__title,
+.day-part__mood,
+.day-part__detail {
+  display: block;
+}
+
+.day-part__title {
+  font-size: 1.45rem;
+  font-weight: 330;
+  letter-spacing: -0.04em;
+}
+
+.day-part__mood {
+  margin-top: 0.8rem;
+  color: rgba(188, 255, 222, 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.day-part__detail {
+  margin-top: 2rem;
+  color: rgba(232, 255, 244, 0.54);
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+.day-flow {
+  margin-top: 1.2rem;
+  border: 1px solid rgba(225, 255, 241, 0.08);
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 191, 101, 0.14), transparent 28%),
+    radial-gradient(circle at 84% 28%, rgba(188, 255, 222, 0.14), transparent 32%),
+    rgba(0, 0, 0, 0.18);
+  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.34);
+  padding: clamp(1rem, 2.6vw, 2rem);
+  backdrop-filter: blur(20px);
+}
+
+.day-flow__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.day-flow__header p {
+  color: rgba(248, 255, 252, 0.82);
+  font-size: clamp(2.7rem, 6.5vw, 6.4rem);
+  font-weight: 220;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.day-flow__header button {
+  border: 1px solid rgba(225, 255, 241, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(232, 255, 244, 0.56);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  padding: 0.72rem 1rem;
+  text-transform: uppercase;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+.day-flow__header button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(248, 255, 252, 0.88);
+}
+
+.day-flow__body {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .day-flow__body {
+    grid-template-columns: 0.68fr 1.32fr;
+  }
+}
+
+.day-view__list,
+.day-view__detail {
+  border: 1px solid rgba(225, 255, 241, 0.1);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(18px);
+}
+
+.day-view__list {
+  padding: 1rem;
+}
+
+.day-view__eyebrow {
+  margin: 0 0 0.8rem;
+  color: rgba(188, 255, 222, 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.day-recipe-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: rgba(232, 255, 244, 0.66);
+  padding: 1rem;
+  text-align: left;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+.day-recipe-row:hover,
+.day-recipe-row--active {
+  background: rgba(255, 255, 255, 0.075);
+  color: rgba(248, 255, 252, 0.92);
+}
+
+.day-recipe-row span {
+  font-size: 1.02rem;
+  font-weight: 330;
+}
+
+.day-recipe-row small {
+  color: rgba(232, 255, 244, 0.44);
+  white-space: nowrap;
+}
+
+.day-view__detail {
+  padding: clamp(1.2rem, 2.6vw, 2rem);
+}
+
+.day-view__detail h3 {
+  color: rgba(248, 255, 252, 0.92);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 250;
+  letter-spacing: -0.055em;
+}
+
+.day-view__detail p {
+  margin-top: 1rem;
+  color: rgba(232, 255, 244, 0.62);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.day-detail-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .day-detail-grid {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}
+
+.day-detail-grid h4 {
+  color: rgba(188, 255, 222, 0.78);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.day-detail-grid ul {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day-detail-grid li {
+  border-top: 1px solid rgba(225, 255, 241, 0.08);
+  color: rgba(232, 255, 244, 0.56);
+  font-size: 0.94rem;
+  line-height: 1.58;
+  padding: 0.7rem 0;
+}
+
+.ritual-track {
+  min-height: 13rem;
+  border: 1px solid rgba(225, 255, 241, 0.1);
+  border-radius: 0.55rem;
+  background:
+    radial-gradient(circle at 14% 22%, rgba(188, 255, 222, 0.12), transparent 28%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.3);
+  padding: 1.6rem;
+  backdrop-filter: blur(18px);
+}
+
+.ritual-track h3 {
+  color: rgba(248, 255, 252, 0.9);
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  font-weight: 260;
+  letter-spacing: -0.055em;
+}
+
+.ritual-track p {
+  margin-top: 2.8rem;
+  max-width: 34rem;
+  color: rgba(232, 255, 244, 0.56);
+  font-size: 0.98rem;
+  line-height: 1.68;
+}
+
+.home-luxury-shell {
+  background:
+    radial-gradient(circle at 24% 78%, rgba(166, 255, 217, 0.78), rgba(73, 151, 116, 0.42) 18%, rgba(8, 18, 14, 0.18) 42%, transparent 64%),
+    radial-gradient(circle at 62% 64%, rgba(40, 126, 90, 0.38), transparent 38%),
+    linear-gradient(180deg, #040706 0%, #07110e 58%, #030504 100%);
+}
+
+.elite-home-surface {
+  background:
+    radial-gradient(circle at 24% 78%, rgba(166, 255, 217, 0.46), rgba(73, 151, 116, 0.2) 18%, rgba(8, 18, 14, 0.18) 42%, transparent 64%),
+    radial-gradient(circle at 80% 28%, rgba(40, 126, 90, 0.22), transparent 36%),
+    linear-gradient(180deg, #040706 0%, #07110e 48%, #030504 100%);
+}
+
+.home-noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.58) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-position: 0 0, 11px 13px;
+  background-size: 29px 29px, 37px 37px;
+  mix-blend-mode: soft-light;
+}
+
+.nutrient-webgl {
+  isolation: isolate;
+  min-height: 500px;
+  transform: translateZ(0);
+}
+
+.nutrient-webgl--ambient {
+  border-radius: 0;
+  height: 100vh;
+  min-height: 100vh !important;
+  opacity: 0.92;
+}
+
+.nutrient-webgl canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .nutrient-webgl {
+    min-height: 650px;
+  }
+}
+
+.portrait-bleed {
+  aspect-ratio: 5 / 4;
+  overflow: visible;
+  box-shadow:
+    0 32px 120px rgba(0, 0, 0, 0.42),
+    0 0 130px rgba(44, 127, 59, 0.38);
+  -webkit-mask-image:
+    radial-gradient(ellipse 62% 56% at 50% 50%, black 50%, rgba(0, 0, 0, 0.82) 66%, transparent 88%);
+  mask-image:
+    radial-gradient(ellipse 62% 56% at 50% 50%, black 50%, rgba(0, 0, 0, 0.82) 66%, transparent 88%);
+}
+
+.portrait-image {
+  border-radius: 0;
+  filter: saturate(0.95) contrast(1.05);
+  clip-path: ellipse(57% 51% at 50% 50%);
+}
+
+.portrait-bleed::before,
+.portrait-bleed::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.portrait-bleed::before {
+  inset: -28%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 42%, rgba(44, 127, 59, 0.68), transparent 30%),
+    radial-gradient(circle at 70% 30%, rgba(232, 169, 62, 0.28), transparent 29%),
+    radial-gradient(circle at 52% 72%, rgba(188, 255, 222, 0.2), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(4, 7, 6, 0.38), transparent 50%);
+  filter: blur(48px);
+  opacity: 0.95;
+}
+
+.portrait-bleed::after {
+  inset: -14%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 64% 58% at 50% 50%, transparent 58%, rgba(4, 7, 6, 0.4) 73%, #040706 92%),
+    radial-gradient(circle at 14% 30%, rgba(44, 127, 59, 0.28), transparent 25%),
+    radial-gradient(circle at 84% 28%, rgba(4, 7, 6, 0.72), transparent 36%);
+  filter: blur(26px);
+  mix-blend-mode: normal;
+  opacity: 0.82;
+}
+
+.ritual-page {
+  color: rgba(248, 255, 252, 0.92);
+}
+
+.ritual-return-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(225, 255, 241, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(232, 255, 244, 0.62);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  padding: 0.72rem 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 220ms ease, color 220ms ease;
+  backdrop-filter: blur(18px);
+}
+
+.ritual-return-link:hover {
+  background: rgba(255, 255, 255, 0.085);
+  color: rgba(248, 255, 252, 0.9);
+}
+
+.ritual-page-title {
+  color: rgba(248, 255, 252, 0.9);
+  font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(4.4rem, 11vw, 12rem);
+  font-weight: 250;
+  letter-spacing: -0.085em;
+  line-height: 0.82;
+}
+
+.ritual-page-flow {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2.4rem, 5vw, 5rem);
+}
+
+@media (min-width: 1024px) {
+  .ritual-page-flow {
+    grid-template-columns: 0.68fr 1.32fr;
+  }
+}
+
+.ritual-page-list,
+.ritual-page-detail,
+.ritual-page-empty {
+  border: 1px solid rgba(225, 255, 241, 0.1);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.038);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(20px);
+}
+
+.ritual-page-list {
+  align-self: start;
+  padding: 0.8rem;
+}
+
+.ritual-page-row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 0.9rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(232, 255, 244, 0.58);
+  padding: 1rem;
+  text-align: left;
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.ritual-page-row:hover,
+.ritual-page-row--active {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(248, 255, 252, 0.92);
+  transform: translateY(-1px);
+}
+
+.ritual-page-row span {
+  color: rgba(188, 255, 222, 0.6);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  padding-top: 0.18rem;
+}
+
+.ritual-page-row strong {
+  font-size: 1.08rem;
+  font-weight: 330;
+  letter-spacing: -0.025em;
+}
+
+.ritual-page-row small {
+  grid-column: 2;
+  color: rgba(232, 255, 244, 0.42);
+}
+
+.ritual-page-detail {
+  overflow: hidden;
+}
+
+.ritual-page-photo {
+  position: relative;
+  min-height: 15rem;
+}
+
+@media (min-width: 768px) {
+  .ritual-page-photo {
+    min-height: 22rem;
+  }
+}
+
+.ritual-page-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 35%, rgba(4, 7, 6, 0.72) 100%),
+    radial-gradient(circle at 70% 18%, rgba(188, 255, 222, 0.16), transparent 34%);
+}
+
+.ritual-page-detail__content {
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.ritual-page-detail h2 {
+  margin-top: 1.1rem;
+  color: rgba(248, 255, 252, 0.92);
+  font-size: clamp(2rem, 4vw, 4.4rem);
+  font-weight: 240;
+  letter-spacing: -0.065em;
+  line-height: 0.96;
+}
+
+.ritual-page-detail p,
+.ritual-page-science p {
+  color: rgba(232, 255, 244, 0.62);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.ritual-page-detail p {
+  margin-top: 1rem;
+}
+
+.ritual-page-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+@media (min-width: 768px) {
+  .ritual-page-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ritual-page-grid section,
+.ritual-page-science {
+  border: 1px solid rgba(225, 255, 241, 0.08);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 1rem;
+}
+
+.ritual-page-grid h3,
+.ritual-page-science h3 {
+  color: rgba(188, 255, 222, 0.76);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ritual-page-grid ul {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ritual-page-grid li {
+  border-top: 1px solid rgba(225, 255, 241, 0.08);
+  padding: 0.75rem 0;
+}
+
+.ritual-page-grid li:first-child {
+  border-top: 0;
+}
+
+.ritual-page-grid li strong,
+.ritual-page-grid li span {
+  display: block;
+}
+
+.ritual-page-grid li strong {
+  color: rgba(248, 255, 252, 0.84);
+  font-weight: 360;
+}
+
+.ritual-page-grid li span {
+  margin-top: 0.25rem;
+  color: rgba(232, 255, 244, 0.5);
+  line-height: 1.55;
+}
+
+.ritual-page-science {
+  margin-top: 1rem;
+}
+
+.ritual-page-link {
+  display: inline-flex;
+  margin-top: 1.2rem;
+  color: rgba(248, 255, 252, 0.78);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.ritual-page-empty {
+  color: rgba(232, 255, 244, 0.58);
+  margin-top: 2rem;
+  padding: 2rem;
+}
