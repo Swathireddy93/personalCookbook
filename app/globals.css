@@ -152,6 +152,21 @@ html {
     linear-gradient(90deg, rgba(2, 4, 8, 0.98) 0%, rgba(3, 9, 18, 0.66) 45%, rgba(2, 4, 8, 0.62) 100%);
 }
 
+.ambience-weekly .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 68%, rgba(222, 190, 119, 0.16), transparent 32%),
+    radial-gradient(circle at 76% 32%, rgba(152, 219, 174, 0.24), transparent 36%),
+    linear-gradient(90deg, rgba(5, 7, 5, 0.97) 0%, rgba(28, 24, 12, 0.56) 45%, rgba(4, 7, 6, 0.5) 100%);
+}
+
+.ambience-cycle .ambience-layer {
+  background:
+    radial-gradient(circle at 26% 70%, rgba(101, 13, 35, 0.28), transparent 34%),
+    radial-gradient(circle at 70% 34%, rgba(119, 24, 48, 0.22), transparent 36%),
+    radial-gradient(circle at 82% 28%, rgba(188, 255, 222, 0.1), transparent 34%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.98) 0%, rgba(38, 9, 18, 0.68) 45%, rgba(4, 7, 6, 0.58) 100%);
+}
+
 .day-part {
   display: block;
   width: 100%;
@@ -371,6 +386,8 @@ html {
 }
 
 .ritual-track {
+  display: block;
+  width: 100%;
   min-height: 13rem;
   border: 1px solid rgba(225, 255, 241, 0.1);
   border-radius: 0.55rem;
@@ -378,8 +395,25 @@ html {
     radial-gradient(circle at 14% 22%, rgba(188, 255, 222, 0.12), transparent 28%),
     rgba(255, 255, 255, 0.035);
   box-shadow: 0 26px 90px rgba(0, 0, 0, 0.3);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
   padding: 1.6rem;
+  text-align: left;
   backdrop-filter: blur(18px);
+  transition:
+    background 240ms ease,
+    border-color 240ms ease,
+    transform 240ms ease;
+}
+
+.ritual-track:hover,
+.ritual-track--active {
+  border-color: rgba(188, 255, 222, 0.34);
+  background:
+    radial-gradient(circle at 14% 22%, rgba(188, 255, 222, 0.17), transparent 28%),
+    rgba(255, 255, 255, 0.07);
+  transform: translateY(-2px);
 }
 
 .ritual-track h3 {

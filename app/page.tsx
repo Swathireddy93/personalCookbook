@@ -7,6 +7,7 @@ import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { Badge } from "@/components/ui/badge";
 
 type DayPart = "morning" | "noon" | "evening" | "night";
+type RhythmPart = "weekly" | "cycle";
 
 const dayParts: Array<{
   id: DayPart;
@@ -47,10 +48,12 @@ const dayParts: Array<{
 
 const ritualTracks = [
   {
+    id: "weekly" as const,
     title: "Weekly Anchors",
     detail: "Batch preps, replenishment recipes, grocery rhythms, and longer reset rituals."
   },
   {
+    id: "cycle" as const,
     title: "Cycle Care Rituals",
     detail: "Phase-aware nourishment for period days, luteal support, cravings, comfort, and recovery."
   }
@@ -60,6 +63,8 @@ export default function HomePage() {
   const router = useRouter();
   const [activeDay, setActiveDay] = useState<DayPart>("morning");
   const [selectedDay, setSelectedDay] = useState<DayPart | null>(null);
+  const [activeRhythm, setActiveRhythm] = useState<RhythmPart | null>(null);
+  const activeAmbience = activeRhythm ?? activeDay;
 
   function handleDayClick(part: (typeof dayParts)[number]) {
     if (selectedDay === part.id) {
@@ -68,11 +73,12 @@ export default function HomePage() {
     }
 
     setActiveDay(part.id);
+    setActiveRhythm(null);
     setSelectedDay(part.id);
   }
 
   return (
-    <main className={`elite-home-surface ambience-${activeDay} home-noise relative overflow-hidden bg-[#040706] text-stone-50`}>
+    <main className={`elite-home-surface ambience-${activeAmbience} home-noise relative overflow-hidden bg-[#040706] text-stone-50`}>
       <NutrientWebGL ambient className="fixed inset-0 z-0 pointer-events-none" />
       <div className="ambience-layer pointer-events-none fixed inset-0 z-[1]" />
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[1] h-48 bg-gradient-to-b from-black via-black/78 to-transparent" />
@@ -136,10 +142,18 @@ export default function HomePage() {
           </div>
           <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {ritualTracks.map((track) => (
-              <div className="ritual-track" key={track.title}>
+              <button
+                className={`ritual-track ${activeRhythm === track.id ? "ritual-track--active" : ""}`}
+                key={track.title}
+                onClick={() => {
+                  setActiveRhythm(track.id);
+                  setSelectedDay(null);
+                }}
+                type="button"
+              >
                 <h3>{track.title}</h3>
                 <p>{track.detail}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -172,8 +186,11 @@ export default function HomePage() {
               I notice the tiny things: the color of morning light, the order of ingredients, the
               way a drink feels before breakfast, and the difference between a claim and a personal
               observation.{" "}
-              It is not just a recipe site. It is a living archive of what I consume, why I consume
-              it, when I consume it, and what I notice over time.
+              This archive brings together recipes, ingredients, and reflections gathered over more
+              than a decade of practice—capturing what I keep returning to, what continues to
+              evolve, and what remains worth sharing. Many of these recipes are inspired by the
+              Indian women in my life, whose quiet wisdom shaped the way I think about food and
+              nourishment.
             </p>
             <p className="home-copy home-copy--secondary mt-5 max-w-2xl">
               I&apos;m Swathi. If something here resonates, I hope it finds a place in your own routine.
