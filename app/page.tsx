@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { Badge } from "@/components/ui/badge";
 
@@ -59,12 +59,48 @@ const ritualTracks = [
   }
 ];
 
+const recipeCollections = [
+  {
+    title: "Detox Drinks",
+    detail: "Citrus waters, herbal infusions, spice drinks, and mineral-forward resets that can also belong inside daily rituals."
+  },
+  {
+    title: "Soups",
+    detail: "Broths, rasams, lentil bowls, and warm restorative recipes gathered as their own nourishing library."
+  },
+  {
+    title: "Quick pick me ups",
+    detail: "Small lifts for low-energy windows: tonics, snacks, warm cups, and fast rituals that do not need a full meal."
+  }
+];
+
 export default function HomePage() {
   const router = useRouter();
   const [activeDay, setActiveDay] = useState<DayPart>("morning");
   const [selectedDay, setSelectedDay] = useState<DayPart | null>(null);
   const [activeRhythm, setActiveRhythm] = useState<RhythmPart | null>(null);
   const activeAmbience = activeRhythm ?? activeDay;
+
+  useEffect(() => {
+    function resetFourLightsHash() {
+      if (window.location.hash !== "#four-lights") return;
+
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+
+      window.setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }, 120);
+
+      window.setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 520);
+    }
+
+    resetFourLightsHash();
+    window.addEventListener("hashchange", resetFourLightsHash);
+
+    return () => window.removeEventListener("hashchange", resetFourLightsHash);
+  }, []);
 
   function handleDayClick(part: (typeof dayParts)[number]) {
     if (selectedDay === part.id) {
@@ -154,6 +190,25 @@ export default function HomePage() {
                 <h3>{track.title}</h3>
                 <p>{track.detail}</p>
               </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 px-4 py-12 sm:px-6 lg:py-16">
+        <div className="relative mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <Badge className="mb-6 border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] uppercase tracking-[0.34em] text-emerald-50/78 backdrop-blur-md">
+              Recipe library
+            </Badge>
+            <h2 className="section-heading">One recipe, many places.</h2>
+          </div>
+          <div className="library-grid mt-8">
+            {recipeCollections.map((collection) => (
+              <article className="library-card" key={collection.title}>
+                <h3>{collection.title}</h3>
+                <p>{collection.detail}</p>
+              </article>
             ))}
           </div>
         </div>

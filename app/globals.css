@@ -77,15 +77,39 @@ html {
 }
 
 .ritual-title {
+  animation: title-settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
   color: rgba(231, 255, 244, 0.28);
   font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(6.2rem, 15vw, 15.5rem);
   font-weight: 300;
   letter-spacing: -0.075em;
   line-height: 0.82;
+  transform-origin: left center;
   text-shadow:
     0 0 64px rgba(180, 255, 223, 0.1),
     0 0 140px rgba(180, 255, 223, 0.06);
+}
+
+@keyframes title-settle {
+  0% {
+    opacity: 0.08;
+    transform: translate3d(-0.08em, 0.08em, 0) scale(1.18);
+  }
+
+  58% {
+    opacity: 0.24;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ritual-title {
+    animation: none;
+  }
 }
 
 .home-copy {
@@ -428,6 +452,44 @@ html {
   max-width: 34rem;
   color: rgba(232, 255, 244, 0.56);
   font-size: 0.98rem;
+  line-height: 1.68;
+}
+
+.library-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .library-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.library-card {
+  min-height: 14rem;
+  border: 1px solid rgba(225, 255, 241, 0.1);
+  border-radius: 0.55rem;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(188, 255, 222, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 78%, rgba(222, 190, 119, 0.08), transparent 32%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  backdrop-filter: blur(18px);
+}
+
+.library-card h3 {
+  color: rgba(248, 255, 252, 0.9);
+  font-size: clamp(1.6rem, 2.3vw, 2.25rem);
+  font-weight: 260;
+  letter-spacing: -0.055em;
+}
+
+.library-card p {
+  margin-top: 2.6rem;
+  color: rgba(232, 255, 244, 0.56);
+  font-size: 0.96rem;
   line-height: 1.68;
 }
 
