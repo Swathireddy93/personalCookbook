@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { Badge } from "@/components/ui/badge";
@@ -57,7 +57,19 @@ const ritualTracks = [
 ];
 
 export default function HomePage() {
+  const router = useRouter();
   const [activeDay, setActiveDay] = useState<DayPart>("morning");
+  const [selectedDay, setSelectedDay] = useState<DayPart | null>(null);
+
+  function handleDayClick(part: (typeof dayParts)[number]) {
+    if (selectedDay === part.id) {
+      router.push(part.href);
+      return;
+    }
+
+    setActiveDay(part.id);
+    setSelectedDay(part.id);
+  }
 
   return (
     <main className={`elite-home-surface ambience-${activeDay} home-noise relative overflow-hidden bg-[#040706] text-stone-50`}>
@@ -96,16 +108,19 @@ export default function HomePage() {
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {dayParts.map((part) => (
-              <Link
+              <button
+                aria-label={`${part.title}. Select once to change ambience, select again to open ${part.title} ritual.`}
                 className={`day-part ${activeDay === part.id ? "day-part--active" : ""}`}
-                href={part.href}
                 key={part.id}
                 onMouseEnter={() => setActiveDay(part.id)}
+                onClick={() => handleDayClick(part)}
+                onFocus={() => setActiveDay(part.id)}
+                type="button"
               >
                 <span className="day-part__title">{part.title}</span>
                 <span className="day-part__mood">{part.mood}</span>
                 <span className="day-part__detail">{part.detail}</span>
-              </Link>
+              </button>
             ))}
           </div>
         </div>

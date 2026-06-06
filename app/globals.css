@@ -154,12 +154,15 @@ html {
 
 .day-part {
   display: block;
+  width: 100%;
   min-height: 13rem;
   border: 1px solid rgba(225, 255, 241, 0.1);
   border-radius: 0.55rem;
   background: rgba(255, 255, 255, 0.035);
   box-shadow: 0 22px 80px rgba(0, 0, 0, 0.28);
   color: rgba(232, 255, 244, 0.66);
+  cursor: pointer;
+  font: inherit;
   padding: 1.35rem;
   text-align: left;
   text-decoration: none;
