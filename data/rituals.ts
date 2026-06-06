@@ -14,6 +14,7 @@ import {
 
 export type EvidenceStrength = "Strong" | "Moderate" | "Emerging";
 export type RitualSlug = "morning" | "noon" | "evening" | "night" | "weekly" | "seasonal";
+export type CollectionSlug = "detox-drinks" | "soups" | "quick-pick-me-ups";
 
 export type Ingredient = {
   name: string;
@@ -43,6 +44,7 @@ export type Recipe = {
   };
   prep: { title: string; body: string; image?: string }[];
   notes: string;
+  collections?: CollectionSlug[];
 };
 
 export const benefitIcons = {
@@ -102,6 +104,28 @@ export const rituals = [
   }
 ] as const;
 
+export const collectionDefinitions: Array<{
+  slug: CollectionSlug;
+  title: string;
+  description: string;
+}> = [
+  {
+    slug: "detox-drinks",
+    title: "Detox Drinks",
+    description: "Citrus waters, spice drinks, herbal infusions, and mineral-forward resets gathered across rituals."
+  },
+  {
+    slug: "soups",
+    title: "Soups",
+    description: "Warm bowls, broths, rasams, and vegetable soups that can belong to noon, evening, or recovery days."
+  },
+  {
+    slug: "quick-pick-me-ups",
+    title: "Quick pick me ups",
+    description: "Small lifts for low-energy windows: fruit, tonics, warm cups, and fast bites that do not need a full meal."
+  }
+];
+
 export const recipes: Recipe[] = [
   {
     slug: "warm-lemon-mineral-water",
@@ -110,10 +134,11 @@ export const recipes: Recipe[] = [
     order: 1,
     consumedAt: "6:15 AM",
     prepTime: "4 minutes",
-    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1600&auto=format&fit=crop",
+    image: "/warm-drink.jpeg",
     summary: "A gentle warm-water ritual with citrus, turmeric, honey, and black pepper before breakfast.",
     diet: ["Vegetarian", "Low Carb"],
     goals: ["Gut Health", "Energy", "Immunity"],
+    collections: ["detox-drinks"],
     ingredients: [
       {
         name: "Hot Water",
@@ -166,164 +191,165 @@ export const recipes: Recipe[] = [
     notes: "I notice I drink more water when it is warm and slightly bright, especially before coffee."
   },
   {
-    slug: "green-smoothie",
-    title: "Green Smoothie",
+    slug: "berries-dark-chocolate",
+    title: "Berries & Dark Chocolate",
     ritual: "morning",
     order: 2,
-    consumedAt: "6:45 AM",
-    prepTime: "8 minutes",
-    image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=1600&auto=format&fit=crop",
-    summary: "Fiber-forward greens blended with berries, chia, and protein for a calm energy curve.",
-    diet: ["Vegetarian", "High Protein"],
-    goals: ["Energy", "Focus", "Gut Health"],
+    consumedAt: "7:00 AM",
+    prepTime: "3 minutes",
+    image: "/ragi-malt.jpeg",
+    summary: "A bright second choice with berries and dark chocolate for polyphenols, texture, and a gentle lift.",
+    diet: ["Vegetarian"],
+    goals: ["Focus", "Energy", "Gut Health"],
+    collections: ["quick-pick-me-ups"],
     ingredients: [
       {
-        name: "Spinach",
-        nutrition: "Folate, magnesium, vitamin K",
-        why: "Adds greens without overpowering the taste.",
-        rationale: "Leafy greens contribute nitrates and micronutrients that support vascular and metabolic health."
-      },
-      {
-        name: "Blueberries",
+        name: "Blackberries",
         nutrition: "Anthocyanins, fiber, vitamin C",
-        why: "Gives sweetness and polyphenol density.",
-        rationale: "Berry polyphenols are studied for vascular and cognitive effects."
+        why: "Adds deep color, tartness, and fiber.",
+        rationale: "Dark berries are studied for anthocyanins, which are associated with vascular and cognitive health markers."
       },
       {
-        name: "Chia",
-        nutrition: "Omega-3 ALA, soluble fiber, minerals",
-        why: "Thickens texture and supports satiety.",
-        rationale: "Soluble fiber slows gastric emptying and feeds gut microbes."
+        name: "Raspberries",
+        nutrition: "Fiber, vitamin C, ellagic acid",
+        why: "Balances sweetness with acidity and adds a high-fiber fruit.",
+        rationale: "Raspberries contribute soluble and insoluble fiber, supporting satiety and gut health."
       },
       {
-        name: "Protein Powder",
-        nutrition: "Essential amino acids",
-        why: "Makes the smoothie a real breakfast component.",
-        rationale: "Adequate protein supports satiety and muscle protein synthesis."
+        name: "Dark Chocolate",
+        nutrition: "Cocoa flavanols, magnesium, iron",
+        why: "Adds bitterness, pleasure, and a small cocoa ritual.",
+        rationale: "Cocoa flavanols are studied for vascular function, though benefits depend on cocoa content and portion size."
       }
     ],
     benefits: [
-      { label: "Gut Health", icon: "gut", detail: "Fiber and polyphenols support microbial diversity." },
-      { label: "Energy", icon: "energy", detail: "Protein and fiber reduce a sharp glucose swing." },
-      { label: "Focus", icon: "focus", detail: "Stable breakfast structure helps deep work." }
-    ],
-    science: {
-      strength: "Strong",
-      mechanism: "Fiber, protein, and polyphenols work together to support satiety and metabolic control.",
-      summary: "Protein at breakfast and higher fiber intake have strong backing for satiety and metabolic health. Berry research is promising for cognition and vascular function.",
-      takeaways: ["Anchor with protein.", "Use berries before juice.", "Rotate greens to avoid monotony."]
-    },
-    prep: [
-      { title: "Layer", body: "Add liquid first, then greens, berries, chia, and protein." },
-      { title: "Blend", body: "Blend until smooth, pausing once to scrape the sides." },
-      { title: "Rest", body: "Let it sit for two minutes so chia can hydrate." }
-    ],
-    notes: "This works best for me when it is not too sweet. I feel steadier when protein is included."
-  },
-  {
-    slug: "turmeric-ginger-drink",
-    title: "Morning Turmeric Ginger Drink",
-    ritual: "morning",
-    order: 3,
-    consumedAt: "7:15 AM",
-    prepTime: "5 minutes",
-    image: "https://images.unsplash.com/photo-1604908812868-0f0fca982ad6?q=80&w=1600&auto=format&fit=crop",
-    summary: "A spicy anti-inflammatory drink built around turmeric, ginger, lemon, and black pepper.",
-    diet: ["Vegan", "Low Carb"],
-    goals: ["Recovery", "Gut Health", "Immunity"],
-    ingredients: [
-      {
-        name: "Turmeric",
-        nutrition: "Curcuminoids, manganese",
-        why: "The signature anti-inflammatory ingredient.",
-        rationale: "Curcumin is studied for inflammatory pathways, though bioavailability is a known limitation."
-      },
-      {
-        name: "Ginger",
-        nutrition: "Gingerols, shogaols",
-        why: "Adds heat and digestive support.",
-        rationale: "Ginger compounds have evidence for nausea support and inflammatory signaling."
-      },
-      {
-        name: "Black Pepper",
-        nutrition: "Piperine",
-        why: "Included to improve curcumin absorption.",
-        rationale: "Piperine can increase curcumin bioavailability by slowing metabolism."
-      },
-      {
-        name: "Lemon",
-        nutrition: "Vitamin C, citric acid",
-        why: "Balances bitterness and adds acidity.",
-        rationale: "Acidity improves flavor and may support mineral absorption in meals."
-      }
-    ],
-    benefits: [
-      { label: "Anti-inflammatory", icon: "inflammation", detail: "Curcumin and gingerols are studied for inflammatory pathways." },
-      { label: "Gut Health", icon: "gut", detail: "Ginger is commonly used for digestive comfort." },
-      { label: "Recovery", icon: "energy", detail: "A low-calorie way to add functional spices." }
+      { label: "Focus", icon: "focus", detail: "A small cocoa ritual and berry acidity can feel mentally bright." },
+      { label: "Gut Health", icon: "gut", detail: "Berries add fiber and polyphenols." },
+      { label: "Energy", icon: "energy", detail: "Light, quick, and easy before a fuller breakfast." }
     ],
     science: {
       strength: "Moderate",
-      mechanism: "Curcuminoids influence inflammatory signaling, while piperine may increase curcumin exposure.",
-      summary: "Black pepper contains piperine, which may increase bioavailability of curcumin. Human research is encouraging but dose, formulation, and individual tolerance matter.",
-      takeaways: ["Use a tiny pinch of pepper.", "Pair with a little fat when possible.", "Avoid high doses if contraindicated."]
+      mechanism: "Berry polyphenols and cocoa flavanols contribute antioxidant activity and may support vascular signaling.",
+      summary: "Berries are consistently associated with fiber and polyphenol intake. Dark chocolate can add cocoa flavanols, but portion and sugar content matter, so this stays a small, intentional ritual.",
+      takeaways: ["Use dark chocolate in a small portion.", "Keep berries whole rather than juiced.", "Treat this as a light second choice, not a full meal."]
     },
     prep: [
-      { title: "Boil water", body: "Bring water to a gentle simmer." },
-      { title: "Add ginger", body: "Add grated ginger and steep for three minutes." },
-      { title: "Add turmeric", body: "Whisk in turmeric, lemon, and a small pinch of black pepper." },
-      { title: "Sip slowly", body: "Drink warm before or alongside breakfast." }
+      { title: "Rinse berries", body: "Rinse and drain berries gently." },
+      { title: "Plate", body: "Add berries to a small bowl." },
+      { title: "Finish", body: "Add a small piece of dark chocolate and eat slowly." }
     ],
-    notes: "I've noticed improved digestion when consuming this before breakfast, especially on colder mornings."
+    notes: "This feels like a beautiful, minimal morning lift when I want something light but sensory."
   },
   {
-    slug: "protein-breakfast-bowl",
-    title: "Protein Breakfast Bowl",
+    slug: "papaya-sprouts",
+    title: "Papaya & Sprouts",
     ritual: "morning",
-    order: 4,
-    consumedAt: "8:00 AM",
-    prepTime: "12 minutes",
-    image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?q=80&w=1600&auto=format&fit=crop",
-    summary: "Greek yogurt, seeds, berries, and nuts arranged as a high-protein breakfast bowl.",
-    diet: ["Vegetarian", "High Protein"],
-    goals: ["Energy", "Focus", "Recovery"],
+    order: 3,
+    consumedAt: "7:30 AM",
+    prepTime: "10 minutes",
+    image: "/papaya-sprouts.jpeg",
+    summary: "A fresh morning plate pairing papaya with sprouted mung for enzymes, fiber, and plant protein.",
+    diet: ["Vegan", "High Protein"],
+    goals: ["Gut Health", "Energy", "Immunity"],
     ingredients: [
       {
-        name: "Greek Yogurt",
-        nutrition: "Protein, calcium, probiotics",
-        why: "Creates the protein base.",
-        rationale: "High-protein breakfasts are associated with satiety and better appetite control."
+        name: "Papaya",
+        nutrition: "Vitamin C, beta-carotene, papain, fiber",
+        why: "Adds sweetness, color, and digestive lightness.",
+        rationale: "Papaya contributes vitamin C and carotenoids; papain is a proteolytic enzyme often discussed in digestion contexts."
       },
       {
-        name: "Pumpkin Seeds",
-        nutrition: "Magnesium, zinc, protein",
-        why: "Adds minerals and crunch.",
-        rationale: "Magnesium and zinc support metabolic and immune functions."
+        name: "Sprouted Mung Beans",
+        nutrition: "Plant protein, folate, fiber, minerals",
+        why: "Adds crunch, protein, and a traditional sprout rhythm.",
+        rationale: "Sprouting can improve digestibility and changes nutrient availability in legumes."
       },
       {
-        name: "Blueberries",
-        nutrition: "Anthocyanins, fiber",
-        why: "Adds antioxidant-rich sweetness.",
-        rationale: "Anthocyanins are studied for vascular and cognitive benefits."
+        name: "Carrot",
+        nutrition: "Beta-carotene, fiber",
+        why: "Adds earthiness and color to the sprouts.",
+        rationale: "Carrots provide provitamin A carotenoids and support overall vegetable intake."
+      },
+      {
+        name: "Cilantro and Lime",
+        nutrition: "Vitamin C, aromatic compounds",
+        why: "Makes the sprouts taste bright and fresh.",
+        rationale: "Acid and herbs can improve palatability, making fiber-rich foods easier to repeat."
       }
     ],
     benefits: [
-      { label: "High Protein", icon: "energy", detail: "Supports satiety and recovery." },
-      { label: "Focus", icon: "focus", detail: "A slower breakfast for a calmer work block." },
-      { label: "Recovery", icon: "rhythm", detail: "Amino acids and minerals support training days." }
+      { label: "Gut Health", icon: "gut", detail: "Fiber, sprouts, and papaya make this a digestion-centered plate." },
+      { label: "Energy", icon: "energy", detail: "Light carbohydrates plus plant protein keep it fresh but grounded." },
+      { label: "Immunity", icon: "immunity", detail: "Papaya and lime contribute vitamin C." }
+    ],
+    science: {
+      strength: "Moderate",
+      mechanism: "Fiber supports gut motility and microbial fermentation, while sprouted legumes add plant protein and micronutrients.",
+      summary: "The strongest science-backed framing is fiber, micronutrients, and legume sprouting. Papaya enzymes are interesting, but personal tolerance and freshness matter.",
+      takeaways: ["Use fresh sprouts.", "Keep seasoning simple.", "Separate digestive comfort observations from medical claims."]
+    },
+    prep: [
+      { title: "Cut papaya", body: "Cube ripe papaya and set it aside." },
+      { title: "Season sprouts", body: "Toss sprouts with grated carrot, herbs, lime, and a little salt." },
+      { title: "Plate together", body: "Serve papaya and sprouts side by side." }
+    ],
+    notes: "This feels especially alive on mornings when I want freshness, crunch, and color."
+  },
+  {
+    slug: "ragi-malt-dry-fruits",
+    title: "Ragi Malt with Dry Fruits",
+    ritual: "morning",
+    order: 4,
+    consumedAt: "8:00 AM",
+    prepTime: "15 minutes",
+    image: "/berries-dark-chocolate.jpeg",
+    summary: "A warm ragi malt bowl with dry fruits for a more grounding, mineral-rich breakfast.",
+    diet: ["Vegetarian", "High Protein"],
+    goals: ["Energy", "Recovery", "Gut Health"],
+    collections: ["quick-pick-me-ups"],
+    ingredients: [
+      {
+        name: "Ragi",
+        nutrition: "Calcium, fiber, complex carbohydrates, polyphenols",
+        why: "Creates the earthy, grounding base.",
+        rationale: "Finger millet is valued for mineral density and slow-digesting carbohydrates."
+      },
+      {
+        name: "Milk or Water",
+        nutrition: "Hydration, optional protein and calcium",
+        why: "Turns the flour into a warm, spoonable malt.",
+        rationale: "Liquid choice changes protein and calcium content while keeping the preparation gentle."
+      },
+      {
+        name: "Walnuts and Cashews",
+        nutrition: "Healthy fats, magnesium, copper",
+        why: "Adds crunch, richness, and satiety.",
+        rationale: "Nuts contribute unsaturated fats and minerals that can make a grain-based breakfast more sustaining."
+      },
+      {
+        name: "Cardamom",
+        nutrition: "Aromatic compounds",
+        why: "Adds warmth and a familiar Indian breakfast note.",
+        rationale: "Aromatics can improve satisfaction and make lower-sugar preparations feel complete."
+      }
+    ],
+    benefits: [
+      { label: "Energy", icon: "energy", detail: "Complex carbohydrates make this a more sustaining morning option." },
+      { label: "Recovery", icon: "rhythm", detail: "Minerals and nuts make it useful after active mornings." },
+      { label: "Gut Health", icon: "gut", detail: "Ragi fiber supports a grounded breakfast structure." }
     ],
     science: {
       strength: "Strong",
-      mechanism: "Protein intake stimulates satiety hormones and supports muscle protein synthesis.",
-      summary: "Protein distribution across the day is well supported. Yogurt also adds calcium and, depending on the product, live cultures.",
-      takeaways: ["Choose unsweetened yogurt.", "Add fruit for fiber.", "Adjust seeds to digestion tolerance."]
+      mechanism: "Fiber and complex carbohydrates slow digestion, while nuts add fats that support satiety.",
+      summary: "Whole grains and millets can support fiber and mineral intake. Ragi is especially known for calcium content, though preparation and portion size shape the full nutritional impact.",
+      takeaways: ["Cook thoroughly to avoid lumps.", "Use nuts for satiety.", "Sweeten lightly if needed."]
     },
     prep: [
-      { title: "Spoon yogurt", body: "Add yogurt to a shallow bowl." },
-      { title: "Add toppings", body: "Layer berries, seeds, nuts, and cinnamon." },
-      { title: "Finish", body: "Let it warm slightly for better flavor." }
+      { title: "Make a slurry", body: "Whisk ragi flour with a little cool water until smooth." },
+      { title: "Cook", body: "Add to warm milk or water and stir until thick and glossy." },
+      { title: "Finish", body: "Top with dry fruits, nuts, and cardamom." }
     ],
-    notes: "This is the most reliable breakfast for avoiding a mid-morning crash."
+    notes: "This is the option I imagine for mornings that need warmth, patience, and something more rooted."
   },
   {
     slug: "matcha-focus-tonic",
@@ -336,6 +362,7 @@ export const recipes: Recipe[] = [
     summary: "A lower-jitter caffeine ritual with matcha, mint, and collagen or plant protein.",
     diet: ["Vegetarian"],
     goals: ["Focus", "Energy"],
+    collections: ["quick-pick-me-ups"],
     ingredients: [
       {
         name: "Matcha",
@@ -366,6 +393,62 @@ export const recipes: Recipe[] = [
       { title: "Top", body: "Add mint and milk of choice." }
     ],
     notes: "Best on writing days, especially when I need alertness without another full coffee."
+  },
+  {
+    slug: "beetroot-soup",
+    title: "Beetroot Soup",
+    ritual: "noon",
+    order: 2,
+    consumedAt: "12:30 PM",
+    prepTime: "25 minutes",
+    image: "/beetroot-soup.jpeg",
+    summary: "A vivid noon soup with beetroot, warming aromatics, and a savory base for a grounded midday reset.",
+    diet: ["Vegetarian"],
+    goals: ["Energy", "Recovery", "Gut Health"],
+    collections: ["soups"],
+    ingredients: [
+      {
+        name: "Beetroot",
+        nutrition: "Dietary nitrates, betalains, folate, fiber",
+        why: "Creates the deep red base and mineral-rich sweetness.",
+        rationale: "Beets are studied for nitrate-related blood flow support and betalain antioxidant activity."
+      },
+      {
+        name: "Garlic",
+        nutrition: "Organosulfur compounds",
+        why: "Adds savory depth and a familiar soup foundation.",
+        rationale: "Garlic compounds are studied for cardiometabolic and immune-related pathways."
+      },
+      {
+        name: "Black Pepper",
+        nutrition: "Piperine",
+        why: "Adds gentle heat and lifts the earthiness of beetroot.",
+        rationale: "Pepper improves flavor and can support the perception of warmth in vegetable soups."
+      },
+      {
+        name: "Whole Grain Toast",
+        nutrition: "Complex carbohydrates, fiber",
+        why: "Makes the soup feel complete when needed.",
+        rationale: "Pairing soup with a fiber-containing carbohydrate can make it more sustaining."
+      }
+    ],
+    benefits: [
+      { label: "Energy", icon: "energy", detail: "Beet nitrates are studied for blood flow and exercise-related performance markers." },
+      { label: "Recovery", icon: "rhythm", detail: "A warm vegetable soup can be a gentle midday reset." },
+      { label: "Gut Health", icon: "gut", detail: "Beetroot adds fiber and plant compounds." }
+    ],
+    science: {
+      strength: "Moderate",
+      mechanism: "Beetroot nitrates can convert to nitric oxide, a molecule involved in vascular tone and blood flow.",
+      summary: "Beetroot has meaningful research around dietary nitrates and vascular function. Soup-specific benefits should be framed through the ingredients, hydration, warmth, and overall dietary pattern.",
+      takeaways: ["Keep it savory rather than overly sweet.", "Use whole beets when possible.", "Pair with protein or whole grain if it needs to be a meal."]
+    },
+    prep: [
+      { title: "Cook beets", body: "Cook beetroot until tender, then blend with broth or water." },
+      { title: "Season", body: "Add garlic, pepper, salt, and warming spices as desired." },
+      { title: "Serve", body: "Serve warm with toast or a protein pairing if needed." }
+    ],
+    notes: "This is the kind of soup that brings color into the middle of the day without feeling heavy."
   },
   {
     slug: "night-wind-down-drink",
@@ -523,6 +606,7 @@ export const recipes: Recipe[] = [
     summary: "A mineral-rich broth with garlic, ginger, mushrooms, and herbs during colder months.",
     diet: ["Low Carb"],
     goals: ["Immunity", "Gut Health"],
+    collections: ["soups"],
     ingredients: [
       {
         name: "Garlic",
@@ -577,8 +661,18 @@ export function getRitual(slug: string) {
   return rituals.find((ritual) => ritual.slug === slug);
 }
 
+export function getCollection(slug: string) {
+  return collectionDefinitions.find((collection) => collection.slug === slug);
+}
+
 export function recipesForRitual(slug: string) {
   return recipes
     .filter((recipe) => recipe.ritual === slug)
     .sort((a, b) => a.order - b.order);
+}
+
+export function recipesForCollection(slug: string) {
+  return recipes
+    .filter((recipe) => recipe.collections?.includes(slug as CollectionSlug))
+    .sort((a, b) => a.title.localeCompare(b.title));
 }

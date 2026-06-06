@@ -4,24 +4,27 @@ import { ArrowLeft } from "lucide-react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { RitualFlow } from "@/components/ritual-flow";
 import { Badge } from "@/components/ui/badge";
-import { getRitual, recipesForRitual, rituals } from "@/data/rituals";
+import {
+  collectionDefinitions,
+  getCollection,
+  recipesForCollection
+} from "@/data/rituals";
 
 const ambienceBySlug: Record<string, string> = {
-  morning: "ambience-morning",
-  noon: "ambience-noon",
-  evening: "ambience-evening",
-  night: "ambience-night"
+  "detox-drinks": "ambience-morning",
+  soups: "ambience-evening",
+  "quick-pick-me-ups": "ambience-noon"
 };
 
 export function generateStaticParams() {
-  return rituals.map((ritual) => ({ slug: ritual.slug }));
+  return collectionDefinitions.map((collection) => ({ slug: collection.slug }));
 }
 
-export default async function RitualPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const ritual = getRitual(slug);
-  if (!ritual) notFound();
-  const recipes = recipesForRitual(slug);
+  const collection = getCollection(slug);
+  if (!collection) notFound();
+  const recipes = recipesForCollection(slug);
   const ambience = ambienceBySlug[slug] ?? "ambience-morning";
 
   return (
@@ -34,15 +37,15 @@ export default async function RitualPage({ params }: { params: Promise<{ slug: s
       <section className="relative z-10 mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 lg:pb-20 lg:pt-20">
         <Link className="ritual-return-link" href="/">
           <ArrowLeft className="h-4 w-4" />
-          Return to Four lights
+          Return home
         </Link>
 
         <div className="mt-12 max-w-4xl">
           <Badge className="mb-6 border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] uppercase tracking-[0.34em] text-emerald-50/78 backdrop-blur-md">
-            Ritual flow
+            Recipe library
           </Badge>
-          <h1 className="ritual-page-title">{ritual.title}</h1>
-          <p className="home-copy mt-6 max-w-2xl">{ritual.description}</p>
+          <h1 className="ritual-page-title">{collection.title}</h1>
+          <p className="home-copy mt-6 max-w-2xl">{collection.description}</p>
         </div>
 
         <RitualFlow recipes={recipes} />

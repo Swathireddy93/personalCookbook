@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { Badge } from "@/components/ui/badge";
 
@@ -62,15 +63,18 @@ const ritualTracks = [
 const recipeCollections = [
   {
     title: "Detox Drinks",
-    detail: "Citrus waters, herbal infusions, spice drinks, and mineral-forward resets that can also belong inside daily rituals."
+    detail: "Citrus waters, herbal infusions, spice drinks, and mineral-forward resets that can also belong inside daily rituals.",
+    href: "/collections/detox-drinks"
   },
   {
     title: "Soups",
-    detail: "Broths, rasams, lentil bowls, and warm restorative recipes gathered as their own nourishing library."
+    detail: "Broths, rasams, lentil bowls, and warm restorative recipes gathered as their own nourishing library.",
+    href: "/collections/soups"
   },
   {
     title: "Quick pick me ups",
-    detail: "Small lifts for low-energy windows: tonics, snacks, warm cups, and fast rituals that do not need a full meal."
+    detail: "Small lifts for low-energy windows: tonics, snacks, warm cups, and fast rituals that do not need a full meal.",
+    href: "/collections/quick-pick-me-ups"
   }
 ];
 
@@ -80,27 +84,6 @@ export default function HomePage() {
   const [selectedDay, setSelectedDay] = useState<DayPart | null>(null);
   const [activeRhythm, setActiveRhythm] = useState<RhythmPart | null>(null);
   const activeAmbience = activeRhythm ?? activeDay;
-
-  useEffect(() => {
-    function resetFourLightsHash() {
-      if (window.location.hash !== "#four-lights") return;
-
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
-
-      window.setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "auto" });
-      }, 120);
-
-      window.setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 520);
-    }
-
-    resetFourLightsHash();
-    window.addEventListener("hashchange", resetFourLightsHash);
-
-    return () => window.removeEventListener("hashchange", resetFourLightsHash);
-  }, []);
 
   function handleDayClick(part: (typeof dayParts)[number]) {
     if (selectedDay === part.id) {
@@ -139,7 +122,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 py-12 sm:px-6 lg:py-16" id="four-lights">
+      <section className="relative z-10 px-4 py-12 sm:px-6 lg:py-16">
         <div className="relative mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <Badge className="mb-6 border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] uppercase tracking-[0.34em] text-emerald-50/78 backdrop-blur-md">
@@ -205,10 +188,10 @@ export default function HomePage() {
           </div>
           <div className="library-grid mt-8">
             {recipeCollections.map((collection) => (
-              <article className="library-card" key={collection.title}>
+              <Link className="library-card" href={collection.href} key={collection.title}>
                 <h3>{collection.title}</h3>
                 <p>{collection.detail}</p>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
@@ -230,7 +213,7 @@ export default function HomePage() {
 
           <div>
             <Badge className="mb-6 border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] uppercase tracking-[0.34em] text-emerald-50/78 backdrop-blur-md">
-              Person behind the Rituals
+              Behind the Rituals
             </Badge>
             <h2 className="about-heading">
               Meticulous by nature.
@@ -242,14 +225,24 @@ export default function HomePage() {
               way a drink feels before breakfast, and the difference between a claim and a personal
               observation.{" "}
               This archive brings together recipes, ingredients, and reflections gathered over more
-              than a decade of practice—capturing what I keep returning to, what continues to
+              than a decade of practice capturing what I keep returning to, what continues to
               evolve, and what remains worth sharing. Many of these recipes are inspired by the
-              Indian women in my life, whose quiet wisdom shaped the way I think about food and
-              nourishment.
+              Indian women in my life (and yes, a few thanks to my exes mothers), whose quiet
+              wisdom shaped the way I think about food and nourishment.
             </p>
-            <p className="home-copy home-copy--secondary mt-5 max-w-2xl">
+            <p className="home-copy mt-5 max-w-2xl">
               I&apos;m Swathi. If something here resonates, I hope it finds a place in your own routine.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 px-4 py-12 sm:px-6 lg:py-16">
+        <div className="relative mx-auto max-w-7xl">
+          <div className="serenity-note">
+            <p>Serenity to things I cannot change</p>
+            <p>Courage to change the things I can</p>
+            <p>Wisdom to know the difference!</p>
           </div>
         </div>
       </section>
