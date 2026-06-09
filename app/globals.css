@@ -717,6 +717,12 @@ html {
   }
 }
 
+.ritual-page-rail {
+  align-self: start;
+  display: grid;
+  gap: 1rem;
+}
+
 .ritual-page-list,
 .ritual-page-detail,
 .ritual-page-empty {
@@ -728,7 +734,6 @@ html {
 }
 
 .ritual-page-list {
-  align-self: start;
   padding: 0.8rem;
 }
 
@@ -736,7 +741,8 @@ html {
   display: grid;
   width: 100%;
   grid-template-columns: auto 1fr;
-  gap: 0.4rem 0.9rem;
+  align-items: center;
+  gap: 0.9rem;
   border: 0;
   border-radius: 0.5rem;
   background: transparent;
@@ -766,44 +772,45 @@ html {
   letter-spacing: -0.025em;
 }
 
-.ritual-page-row small {
-  grid-column: 2;
-  color: rgba(232, 255, 244, 0.42);
-}
-
-.ritual-page-detail {
-  overflow: hidden;
-}
-
-.ritual-page-photo {
-  position: relative;
-  aspect-ratio: 1 / 1;
+.recipe-image-placeholder {
+  display: grid;
+  min-height: clamp(18rem, 38vw, 31rem);
+  place-items: center;
   margin: clamp(1.2rem, 3vw, 2.4rem) auto 0;
-  max-width: min(26rem, calc(100% - 2.4rem));
-  overflow: visible;
-  -webkit-mask-image:
-    radial-gradient(circle at 50% 50%, black 52%, rgba(0, 0, 0, 0.82) 68%, transparent 88%);
-  mask-image:
-    radial-gradient(circle at 50% 50%, black 52%, rgba(0, 0, 0, 0.82) 68%, transparent 88%);
-}
-
-@media (min-width: 768px) {
-  .ritual-page-photo {
-    max-width: 30rem;
-  }
-}
-
-.ritual-page-photo::after {
-  content: "";
-  position: absolute;
-  inset: -12%;
+  padding: clamp(2rem, 5vw, 4rem);
+  text-align: center;
   background:
-    radial-gradient(circle at 50% 50%, transparent 54%, rgba(4, 7, 6, 0.38) 72%, #040706 94%),
-    radial-gradient(circle at 70% 18%, rgba(188, 255, 222, 0.14), transparent 32%);
-  filter: blur(18px);
-  pointer-events: none;
+    radial-gradient(circle at 50% 50%, rgba(188, 255, 222, 0.1), transparent 34%),
+    radial-gradient(circle at 36% 32%, rgba(235, 191, 112, 0.08), transparent 30%);
 }
 
+.recipe-image-placeholder__mark {
+  width: min(7rem, 36vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(248, 255, 252, 0.22);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(248, 255, 252, 0.11), transparent 34%),
+    radial-gradient(circle at 50% 68%, rgba(188, 255, 222, 0.1), transparent 44%);
+  box-shadow: 0 0 60px rgba(188, 255, 222, 0.12);
+}
+
+.recipe-image-placeholder p {
+  margin-top: 1.4rem;
+  color: rgba(248, 255, 252, 0.82);
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  font-weight: 260;
+  letter-spacing: -0.035em;
+}
+
+.recipe-image-placeholder span {
+  display: block;
+  margin-top: 0.5rem;
+  color: rgba(232, 255, 244, 0.46);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
 .ritual-page-detail__content {
   padding: clamp(1.2rem, 3vw, 2.4rem);
 }
@@ -887,8 +894,22 @@ html {
   line-height: 1.55;
 }
 
+.ritual-page-grid li span b,
+.similar-recipe-card li span b {
+  margin-right: 0.45rem;
+  color: rgba(188, 255, 222, 0.68);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .ritual-page-science {
   margin-top: 1rem;
+}
+
+.ritual-page-science p + p {
+  margin-top: 0.85rem;
 }
 
 .ritual-page-link {
@@ -901,8 +922,284 @@ html {
   text-transform: uppercase;
 }
 
+.similar-recipes {
+  margin-top: 1.2rem;
+  border: 1px solid rgba(225, 255, 241, 0.08);
+  border-radius: 0.55rem;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(188, 255, 222, 0.08), transparent 32%),
+    rgba(255, 255, 255, 0.032);
+  padding: 1rem;
+}
+
+.similar-recipes__trigger {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: rgba(248, 255, 252, 0.78);
+  cursor: pointer;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  padding: 0;
+  text-transform: uppercase;
+  transition: color 220ms ease, opacity 220ms ease;
+}
+
+.similar-recipes__trigger:hover {
+  color: rgba(248, 255, 252, 0.96);
+}
+
+.similar-recipes__grid {
+  animation: similar-recipes-reveal 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+@keyframes similar-recipes-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.similar-recipe-card {
+  border-top: 1px solid rgba(225, 255, 241, 0.08);
+  padding-top: 1rem;
+}
+
+.similar-recipe-card p {
+  margin: 0;
+  color: rgba(248, 255, 252, 0.88);
+  font-size: 1.2rem;
+  font-weight: 320;
+  letter-spacing: -0.02em;
+}
+
+.similar-recipe-card > span {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(188, 255, 222, 0.6);
+  font-size: 0.86rem;
+}
+
+.similar-recipe-card ul {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.similar-recipe-card li {
+  border-top: 1px solid rgba(225, 255, 241, 0.07);
+  padding: 0.8rem 0;
+}
+
+.similar-recipe-card li:first-child {
+  border-top: 0;
+}
+
+.similar-recipe-card strong,
+.similar-recipe-card li span {
+  display: block;
+}
+
+.similar-recipe-card strong {
+  color: rgba(248, 255, 252, 0.82);
+  font-weight: 360;
+}
+
+.similar-recipe-card li span {
+  margin-top: 0.24rem;
+  color: rgba(232, 255, 244, 0.5);
+  line-height: 1.55;
+}
+
 .ritual-page-empty {
   color: rgba(232, 255, 244, 0.58);
   margin-top: 2rem;
   padding: 2rem;
+}
+
+html.light .elite-home-surface {
+  background:
+    radial-gradient(circle at 24% 78%, rgba(169, 219, 188, 0.58), rgba(211, 226, 196, 0.38) 20%, rgba(250, 246, 233, 0.2) 46%, transparent 66%),
+    radial-gradient(circle at 80% 28%, rgba(237, 187, 105, 0.2), transparent 38%),
+    linear-gradient(180deg, #f4efe2 0%, #e7ead9 48%, #efe5d3 100%);
+  color: rgba(31, 41, 32, 0.88);
+}
+
+html.light .home-top-fade {
+  background: linear-gradient(180deg, rgba(244, 239, 226, 0.96), rgba(244, 239, 226, 0.7), transparent);
+}
+
+html.light .home-bottom-fade {
+  background: linear-gradient(0deg, rgba(239, 229, 211, 0.95), rgba(239, 229, 211, 0.7), transparent);
+}
+
+html.light .home-noise::after {
+  opacity: 0.1;
+  background-image:
+    radial-gradient(rgba(64, 83, 59, 0.28) 1px, transparent 1px),
+    radial-gradient(rgba(145, 112, 67, 0.18) 1px, transparent 1px);
+  mix-blend-mode: multiply;
+}
+
+html.light .ambience-morning .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 70%, rgba(255, 189, 95, 0.28), transparent 32%),
+    radial-gradient(circle at 70% 28%, rgba(94, 144, 100, 0.22), transparent 34%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(237, 225, 196, 0.48) 44%, rgba(244, 239, 226, 0.3));
+}
+
+html.light .ambience-noon .ambience-layer {
+  background:
+    radial-gradient(circle at 28% 64%, rgba(255, 249, 220, 0.34), transparent 32%),
+    radial-gradient(circle at 76% 34%, rgba(95, 151, 111, 0.28), transparent 38%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(221, 232, 203, 0.48) 44%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ambience-evening .ambience-layer {
+  background:
+    radial-gradient(circle at 30% 72%, rgba(223, 124, 72, 0.24), transparent 34%),
+    radial-gradient(circle at 74% 36%, rgba(100, 142, 93, 0.18), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(235, 206, 176, 0.5) 46%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ambience-night .ambience-layer {
+  background:
+    radial-gradient(circle at 29% 70%, rgba(84, 112, 155, 0.2), transparent 32%),
+    radial-gradient(circle at 74% 30%, rgba(125, 157, 120, 0.18), transparent 36%),
+    linear-gradient(90deg, rgba(232, 232, 218, 0.92), rgba(203, 212, 202, 0.56) 45%, rgba(244, 239, 226, 0.34));
+}
+
+html.light .ambience-weekly .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 68%, rgba(194, 148, 66, 0.2), transparent 32%),
+    radial-gradient(circle at 76% 32%, rgba(93, 143, 102, 0.24), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(231, 221, 184, 0.5) 45%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ambience-cycle .ambience-layer {
+  background:
+    radial-gradient(circle at 26% 70%, rgba(120, 32, 48, 0.24), transparent 34%),
+    radial-gradient(circle at 70% 34%, rgba(154, 52, 64, 0.18), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(232, 202, 193, 0.54) 45%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ritual-title {
+  color: rgba(44, 67, 45, 0.2);
+  text-shadow: 0 20px 80px rgba(64, 91, 66, 0.18);
+}
+
+html.light .rustic-rule {
+  background: linear-gradient(90deg, transparent, rgba(67, 107, 73, 0.42), transparent);
+}
+
+html.light .home-copy,
+html.light .home-copy--secondary {
+  color: rgba(45, 58, 45, 0.72);
+}
+
+html.light .section-heading,
+html.light .about-heading {
+  color: rgba(33, 44, 35, 0.82);
+}
+
+html.light .day-part,
+html.light .ritual-track,
+html.light .library-card,
+html.light .day-view__list,
+html.light .day-view__detail,
+html.light .ritual-page-list,
+html.light .ritual-page-grid section,
+html.light .ritual-page-science,
+html.light .similar-recipes {
+  border-color: rgba(72, 93, 65, 0.16);
+  background: rgba(255, 252, 242, 0.42);
+  box-shadow: 0 24px 90px rgba(65, 82, 55, 0.12);
+  color: rgba(42, 55, 42, 0.72);
+}
+
+html.light .day-part:hover,
+html.light .day-part--active,
+html.light .ritual-track:hover,
+html.light .ritual-track--active,
+html.light .library-card:hover,
+html.light .day-recipe-row:hover,
+html.light .day-recipe-row--active {
+  border-color: rgba(67, 107, 73, 0.32);
+  background: rgba(255, 252, 242, 0.62);
+  color: rgba(31, 42, 32, 0.9);
+}
+
+html.light .day-part__mood,
+html.light .day-view__eyebrow,
+html.light .ritual-page-grid h3,
+html.light .ritual-page-science h3,
+html.light .similar-recipe-card > span,
+html.light .ritual-page-grid li span b,
+html.light .similar-recipe-card li span b {
+  color: rgba(63, 105, 70, 0.72);
+}
+
+html.light .day-part__detail,
+html.light .ritual-track p,
+html.light .library-card p,
+html.light .ritual-page-grid li span,
+html.light .similar-recipe-card li span,
+html.light .ritual-page-empty {
+  color: rgba(51, 62, 50, 0.58);
+}
+
+html.light .ritual-track h3,
+html.light .library-card h3,
+html.light .day-view__detail h3,
+html.light .ritual-page-grid li strong,
+html.light .similar-recipes__trigger,
+html.light .similar-recipe-card p,
+html.light .similar-recipe-card strong {
+  color: rgba(27, 38, 29, 0.86);
+}
+
+html.light .portrait-bleed {
+  box-shadow:
+    0 30px 110px rgba(70, 92, 59, 0.18),
+    0 0 120px rgba(92, 136, 82, 0.34);
+}
+
+html.light .serenity-note {
+  border-top-color: rgba(72, 93, 65, 0.14);
+}
+
+html.light .serenity-note p {
+  color: rgba(46, 59, 45, 0.52);
+}
+
+html.light .ritual-page-link {
+  color: rgba(38, 65, 43, 0.78);
+}
+
+html.light .recipe-image-placeholder {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(94, 144, 100, 0.12), transparent 34%),
+    radial-gradient(circle at 36% 32%, rgba(202, 139, 48, 0.1), transparent 30%);
+}
+
+html.light .recipe-image-placeholder__mark {
+  border-color: rgba(44, 67, 45, 0.18);
+  box-shadow: 0 0 60px rgba(94, 144, 100, 0.12);
+}
+
+html.light .recipe-image-placeholder p {
+  color: rgba(27, 38, 29, 0.82);
+}
+
+html.light .recipe-image-placeholder span {
+  color: rgba(51, 62, 50, 0.5);
 }

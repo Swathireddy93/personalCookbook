@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Clock, Timer } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { Recipe } from "@/data/rituals";
 
 export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
   const [activeRecipe, setActiveRecipe] = useState<number | null>(null);
+  const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
   const selectedRecipe = activeRecipe === null ? null : recipes[activeRecipe];
 
   if (recipes.length === 0) {
@@ -21,37 +19,30 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
 
   return (
     <div className={`ritual-page-flow ${selectedRecipe ? "" : "ritual-page-flow--list-only"}`}>
-      <div className="ritual-page-list">
-        {recipes.map((recipe, index) => (
-          <button
-            className={`ritual-page-row ${activeRecipe === index ? "ritual-page-row--active" : ""}`}
-            key={recipe.slug}
-            onClick={() => setActiveRecipe(index)}
-            type="button"
-          >
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{recipe.title}</strong>
-            <small>{recipe.consumedAt}</small>
-          </button>
-        ))}
-      </div>
+      <aside className="ritual-page-rail">
+        <div className="ritual-page-list">
+          {recipes.map((recipe, index) => (
+            <button
+              className={`ritual-page-row ${activeRecipe === index ? "ritual-page-row--active" : ""}`}
+              key={recipe.slug}
+              onClick={() => {
+                setActiveRecipe(index);
+                setShowSimilarRecipes(false);
+              }}
+              type="button"
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{recipe.title}</strong>
+            </button>
+          ))}
+        </div>
+
+      </aside>
 
       {selectedRecipe ? (
         <article className="ritual-page-detail">
-          <div className="ritual-page-photo">
-            <Image alt={selectedRecipe.title} className="object-cover" fill src={selectedRecipe.image} />
-          </div>
+          <RecipeImagePlaceholder />
           <div className="ritual-page-detail__content">
-            <div className="flex flex-wrap gap-2">
-              <Badge className="border-white/12 bg-white/[0.06] text-emerald-50/78">
-                <Clock className="mr-1 h-3 w-3" />
-                {selectedRecipe.consumedAt}
-              </Badge>
-              <Badge className="border-white/12 bg-white/[0.06] text-emerald-50/78">
-                <Timer className="mr-1 h-3 w-3" />
-                {selectedRecipe.prepTime}
-              </Badge>
-            </div>
             <h2>{selectedRecipe.title}</h2>
             <p>{selectedRecipe.summary}</p>
 
@@ -59,12 +50,24 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
               <section>
                 <h3>Ingredients</h3>
                 <ul>
-                  {selectedRecipe.ingredients.map((ingredient) => (
-                    <li key={ingredient.name}>
-                      <strong>{ingredient.name}</strong>
-                      <span>{ingredient.why}</span>
-                    </li>
-                  ))}
+                  {(selectedRecipe.ingredientBenefits ?? selectedRecipe.ingredients).map((ingredient) => {
+                    const ayurvedic = "ayurvedic" in ingredient ? ingredient.ayurvedic : ingredient.why;
+                    const scientific = "scientific" in ingredient ? ingredient.scientific : ingredient.rationale;
+
+                    return (
+                      <li key={ingredient.name}>
+                        <strong>{ingredient.name}</strong>
+                        <span>
+                          <b>Ayurvedic</b>
+                          {ayurvedic}
+                        </span>
+                        <span>
+                          <b>Scientific</b>
+                          {scientific}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
               <section>
@@ -82,15 +85,67 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
 
             <div className="ritual-page-science">
               <h3>Why this belongs here</h3>
-              <p>{selectedRecipe.science.summary}</p>
+              {selectedRecipe.science.summary.split("\n\n").map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
 
-            <Link className="ritual-page-link" href={`/recipes/${selectedRecipe.slug}`}>
-              Open full recipe
-            </Link>
+            {selectedRecipe.similarRecipes?.length ? (
+              <section className="similar-recipes">
+                <button
+                  aria-expanded={showSimilarRecipes}
+                  className="similar-recipes__trigger"
+                  onClick={() => setShowSimilarRecipes((open) => !open)}
+                  type="button"
+                >
+                  Open similar recipes
+                </button>
+                {showSimilarRecipes ? (
+                  <div className="similar-recipes__grid">
+                    {selectedRecipe.similarRecipes.map((recipe) => (
+                      <article className="similar-recipe-card" key={recipe.title}>
+                        <p>{recipe.title}</p>
+                        <span>{recipe.subtitle}</span>
+                        <ul>
+                          {recipe.ingredients.map((ingredient) => (
+                            <li key={ingredient.name}>
+                              <strong>{ingredient.name}</strong>
+                              <span>
+                                <b>Ayurvedic</b>
+                                {ingredient.ayurvedic}
+                              </span>
+                              <span>
+                                <b>Scientific</b>
+                                {ingredient.scientific}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
+            ) : (
+              <Link className="ritual-page-link" href={`/recipes/${selectedRecipe.slug}`}>
+                Open full recipe
+              </Link>
+            )}
           </div>
         </article>
       ) : null}
+    </div>
+  );
+}
+
+function RecipeImagePlaceholder() {
+  return (
+    <div className="recipe-image-placeholder">
+      <div className="recipe-image-placeholder__mark" />
+      <div>
+        <p>Image coming soon</p>
+        <span>Personal photo or illustration placeholder</span>
+      </div>
     </div>
   );
 }

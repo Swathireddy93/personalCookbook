@@ -82,14 +82,6 @@ export function AdminEditor({ initialRecipes }: { initialRecipes: Recipe[] }) {
                 <input className="h-11 rounded-md border bg-background px-3 outline-none focus:ring-2 focus:ring-ring" value={active.title} onChange={(event) => updateField("title", event.target.value)} />
               </label>
               <label className="grid gap-2 text-sm font-medium">
-                Consumed at
-                <input className="h-11 rounded-md border bg-background px-3 outline-none focus:ring-2 focus:ring-ring" value={active.consumedAt} onChange={(event) => updateField("consumedAt", event.target.value)} />
-              </label>
-              <label className="grid gap-2 text-sm font-medium">
-                Prep time
-                <input className="h-11 rounded-md border bg-background px-3 outline-none focus:ring-2 focus:ring-ring" value={active.prepTime} onChange={(event) => updateField("prepTime", event.target.value)} />
-              </label>
-              <label className="grid gap-2 text-sm font-medium">
                 Image URL
                 <input className="h-11 rounded-md border bg-background px-3 outline-none focus:ring-2 focus:ring-ring" value={active.image} onChange={(event) => updateField("image", event.target.value)} />
               </label>

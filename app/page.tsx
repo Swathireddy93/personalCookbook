@@ -100,8 +100,8 @@ export default function HomePage() {
     <main className={`elite-home-surface ambience-${activeAmbience} home-noise relative overflow-hidden bg-[#040706] text-stone-50`}>
       <NutrientWebGL ambient className="fixed inset-0 z-0 pointer-events-none" />
       <div className="ambience-layer pointer-events-none fixed inset-0 z-[1]" />
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[1] h-48 bg-gradient-to-b from-black via-black/78 to-transparent" />
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#040706] via-[#040706]/82 to-transparent" />
+      <div className="home-top-fade pointer-events-none fixed inset-x-0 top-0 z-[1] h-48 bg-gradient-to-b from-black via-black/78 to-transparent" />
+      <div className="home-bottom-fade pointer-events-none fixed inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#040706] via-[#040706]/82 to-transparent" />
 
       <section className="relative z-10 min-h-[calc(100vh-57px)] overflow-hidden">
         <div className="relative mx-auto flex min-h-[calc(100vh-57px)] max-w-7xl items-center px-4 pb-12 pt-12 sm:px-6 lg:pt-16">

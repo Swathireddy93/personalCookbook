@@ -17,7 +17,6 @@ export function SearchAndFilter() {
       const haystack = [
         recipe.title,
         recipe.summary,
-        recipe.consumedAt,
         ...recipe.goals,
         ...recipe.diet,
         ...recipe.ingredients.map((ingredient) => ingredient.name),

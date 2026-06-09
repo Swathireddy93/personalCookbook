@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import * as Accordion from "@radix-ui/react-accordion";
-import { ChevronDown, Clock, FlaskConical, HeartPulse, NotebookPen, Printer, Timer } from "lucide-react";
+import { ChevronDown, FlaskConical, HeartPulse, NotebookPen, Printer } from "lucide-react";
 import { IngredientGraph } from "@/components/ingredient-graph";
 import { IngredientTags } from "@/components/ingredient-tags";
 import { Badge } from "@/components/ui/badge";
@@ -32,8 +32,6 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
             <Badge className="mb-5 bg-card/80">{recipe.ritual} ritual · step {recipe.order}</Badge>
             <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">{recipe.title}</h1>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Badge className="bg-card/85"><Clock className="mr-1 h-3 w-3" />Consumed: {recipe.consumedAt}</Badge>
-              <Badge className="bg-card/85"><Timer className="mr-1 h-3 w-3" />Preparation: {recipe.prepTime}</Badge>
               <Badge className={evidenceClass(recipe.science.strength)}>{recipe.science.strength} evidence</Badge>
             </div>
           </div>

@@ -28,13 +28,25 @@ export type Recipe = {
   title: string;
   ritual: RitualSlug;
   order: number;
-  consumedAt: string;
-  prepTime: string;
   image: string;
   summary: string;
   diet: string[];
   goals: string[];
   ingredients: Ingredient[];
+  ingredientBenefits?: {
+    name: string;
+    ayurvedic: string;
+    scientific: string;
+  }[];
+  similarRecipes?: {
+    title: string;
+    subtitle: string;
+    ingredients: {
+      name: string;
+      ayurvedic: string;
+      scientific: string;
+    }[];
+  }[];
   benefits: { label: string; icon: keyof typeof benefitIcons; detail: string }[];
   science: {
     mechanism: string;
@@ -132,8 +144,6 @@ export const recipes: Recipe[] = [
     title: "Warm drink to start the day",
     ritual: "morning",
     order: 1,
-    consumedAt: "6:15 AM",
-    prepTime: "4 minutes",
     image: "/warm-drink.jpeg",
     summary: "A gentle warm-water ritual with citrus, turmeric, honey, and black pepper before breakfast.",
     diet: ["Vegetarian", "Low Carb"],
@@ -171,6 +181,56 @@ export const recipes: Recipe[] = [
         rationale: "Small doses can improve palatability without turning the drink into a large sugar load."
       }
     ],
+    ingredientBenefits: [
+      {
+        name: "Hot Water",
+        ayurvedic: "A gentle first input that introduces warmth after sleep and supports the morning transition.",
+        scientific: "Most useful as a consistency cue for hydration; warm fluids can be easier to sip slowly."
+      },
+      {
+        name: "Lemon or Lime",
+        ayurvedic: "Adds brightness and stimulation, helping the drink feel lighter and more awakening.",
+        scientific: "Provides citrus micronutrients including vitamin C, citric acid, and plant polyphenols."
+      },
+      {
+        name: "Turmeric",
+        ayurvedic: "Traditionally considered warming and earthy, often used when the morning feels heavy.",
+        scientific: "Contains curcuminoids studied for inflammatory signaling, with absorption affected by preparation."
+      },
+      {
+        name: "Black Pepper Powder",
+        ayurvedic: "Adds heat and sharpness in a very small amount.",
+        scientific: "Piperine may increase curcumin bioavailability when paired with turmeric."
+      },
+      {
+        name: "Honey",
+        ayurvedic: "Used sparingly for sweetness and palatability; added only once the drink is warm, not boiling.",
+        scientific: "Contributes simple carbohydrates and phenolic compounds; portion size matters."
+      }
+    ],
+    similarRecipes: [
+      {
+        title: "CCF drink",
+        subtitle: "Cumin, Coriander & Fennel Seeds",
+        ingredients: [
+          {
+            name: "Cumin Seeds",
+            ayurvedic: "Often used to bring warmth and digestive fire without making the drink feel aggressive.",
+            scientific: "Contains aromatic compounds and minerals; commonly studied in the context of digestion and glucose markers."
+          },
+          {
+            name: "Coriander Seeds",
+            ayurvedic: "Traditionally used as a gentler, cooling balance within the blend.",
+            scientific: "Provides plant compounds such as linalool and polyphenols; evidence is still emerging for specific outcomes."
+          },
+          {
+            name: "Fennel Seeds",
+            ayurvedic: "Used after or between meals for sweetness, lightness, and digestive comfort.",
+            scientific: "Contains anethole-rich volatile oils; studied mostly for digestive comfort and antioxidant activity."
+          }
+        ]
+      }
+    ],
     benefits: [
       { label: "Hydration", icon: "hydration", detail: "Starts the day with warm fluids and electrolytes." },
       { label: "Gut Support", icon: "gut", detail: "Gentle acidity can cue digestion before breakfast." },
@@ -179,7 +239,7 @@ export const recipes: Recipe[] = [
     science: {
       strength: "Moderate",
       mechanism: "Warm hydration supports morning fluid intake, while citrus and spices add polyphenols and a repeatable digestive cue.",
-      summary: "The strongest evidence is for hydration behavior and ingredient-specific compounds. Ayurvedic practice often frames warm water as a gentle first input; the science-backed framing should stay focused on hydration consistency, citrus micronutrients, and the curcumin-piperine pairing.",
+      summary: "In Ayurveda, the early morning is often associated with Kapha—the qualities of heaviness, coolness, and stillness that naturally accumulate during sleep. Warm water, citrus, and spices are traditionally used to introduce warmth and movement as the body transitions into the day.\n\nAyurvedic practice often frames warm water as a gentle first input; the science-backed framing should stay focused on hydration consistency, citrus micronutrients, and the curcumin-piperine pairing.\n\nTurmeric and black pepper are considered warming ingredients, while lemon or lime adds brightness and stimulation. Together, they are often used to support digestion and help counter feelings of sluggishness upon waking.",
       takeaways: ["Use warm, not boiling, water.", "Use just a pinch of pepper.", "Keep personal digestive observations separate from medical claims."]
     },
     prep: [
@@ -195,8 +255,6 @@ export const recipes: Recipe[] = [
     title: "Berries & Dark Chocolate",
     ritual: "morning",
     order: 2,
-    consumedAt: "7:00 AM",
-    prepTime: "3 minutes",
     image: "/ragi-malt.jpeg",
     summary: "A bright second choice with berries and dark chocolate for polyphenols, texture, and a gentle lift.",
     diet: ["Vegetarian"],
@@ -245,8 +303,6 @@ export const recipes: Recipe[] = [
     title: "Papaya & Sprouts",
     ritual: "morning",
     order: 3,
-    consumedAt: "7:30 AM",
-    prepTime: "10 minutes",
     image: "/papaya-sprouts.jpeg",
     summary: "A fresh morning plate pairing papaya with sprouted mung for enzymes, fiber, and plant protein.",
     diet: ["Vegan", "High Protein"],
@@ -300,8 +356,6 @@ export const recipes: Recipe[] = [
     title: "Ragi Malt with Dry Fruits",
     ritual: "morning",
     order: 4,
-    consumedAt: "8:00 AM",
-    prepTime: "15 minutes",
     image: "/berries-dark-chocolate.jpeg",
     summary: "A warm ragi malt bowl with dry fruits for a more grounding, mineral-rich breakfast.",
     diet: ["Vegetarian", "High Protein"],
@@ -356,8 +410,6 @@ export const recipes: Recipe[] = [
     title: "Matcha Focus Tonic",
     ritual: "noon",
     order: 1,
-    consumedAt: "1:30 PM",
-    prepTime: "6 minutes",
     image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=1600&auto=format&fit=crop",
     summary: "A lower-jitter caffeine ritual with matcha, mint, and collagen or plant protein.",
     diet: ["Vegetarian"],
@@ -399,8 +451,6 @@ export const recipes: Recipe[] = [
     title: "Beetroot Soup",
     ritual: "noon",
     order: 2,
-    consumedAt: "12:30 PM",
-    prepTime: "25 minutes",
     image: "/beetroot-soup.jpeg",
     summary: "A vivid noon soup with beetroot, warming aromatics, and a savory base for a grounded midday reset.",
     diet: ["Vegetarian"],
@@ -455,8 +505,6 @@ export const recipes: Recipe[] = [
     title: "Night Wind-Down Drink",
     ritual: "night",
     order: 1,
-    consumedAt: "9:15 PM",
-    prepTime: "7 minutes",
     image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1600&auto=format&fit=crop",
     summary: "A quiet warm drink used as a low-light cue to close the day.",
     diet: ["Vegetarian"],
@@ -503,8 +551,6 @@ export const recipes: Recipe[] = [
     title: "Evening Golden Milk",
     ritual: "evening",
     order: 1,
-    consumedAt: "8:30 PM",
-    prepTime: "10 minutes",
     image: "https://images.unsplash.com/photo-1577594990850-e007465baf7f?q=80&w=1600&auto=format&fit=crop",
     summary: "A calming turmeric milk with cinnamon, ginger, and a touch of fat for absorption.",
     diet: ["Vegetarian", "Low Carb"],
@@ -543,7 +589,7 @@ export const recipes: Recipe[] = [
     prep: [
       { title: "Warm milk", body: "Heat milk of choice on low." },
       { title: "Whisk spices", body: "Add turmeric, cinnamon, ginger, and pepper." },
-      { title: "Steep", body: "Let it sit for two minutes before drinking." }
+      { title: "Steep", body: "Let it sit briefly before drinking." }
     ],
     notes: "This helps me close the kitchen mentally and avoid late scrolling with snacks."
   },
@@ -552,8 +598,6 @@ export const recipes: Recipe[] = [
     title: "Weekly Recovery Smoothie",
     ritual: "weekly",
     order: 1,
-    consumedAt: "Post workout",
-    prepTime: "9 minutes",
     image: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?q=80&w=1600&auto=format&fit=crop",
     summary: "A training-day smoothie with berries, protein, tart cherry, and electrolytes.",
     diet: ["High Protein"],
@@ -600,8 +644,6 @@ export const recipes: Recipe[] = [
     title: "Seasonal Immune Broth",
     ritual: "seasonal",
     order: 1,
-    consumedAt: "Cold evenings",
-    prepTime: "18 minutes",
     image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=1600&auto=format&fit=crop",
     summary: "A mineral-rich broth with garlic, ginger, mushrooms, and herbs during colder months.",
     diet: ["Low Carb"],
