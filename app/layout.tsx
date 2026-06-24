@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { SiteMenu } from "@/components/site-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <nav className="flex items-center gap-2 text-sm text-muted-foreground">
               <ThemeToggle />
+              <SiteMenu />
             </nav>
           </div>
         </header>

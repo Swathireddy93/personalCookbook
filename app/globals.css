@@ -191,6 +191,27 @@ html {
     linear-gradient(90deg, rgba(4, 7, 6, 0.98) 0%, rgba(38, 9, 18, 0.68) 45%, rgba(4, 7, 6, 0.58) 100%);
 }
 
+.ambience-detox .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 68%, rgba(172, 255, 220, 0.25), transparent 33%),
+    radial-gradient(circle at 76% 30%, rgba(121, 214, 182, 0.22), transparent 36%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.97) 0%, rgba(8, 35, 27, 0.6) 45%, rgba(4, 7, 6, 0.5) 100%);
+}
+
+.ambience-soups .ambience-layer {
+  background:
+    radial-gradient(circle at 27% 70%, rgba(190, 57, 45, 0.26), transparent 34%),
+    radial-gradient(circle at 72% 34%, rgba(238, 143, 76, 0.18), transparent 36%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.98) 0%, rgba(45, 15, 11, 0.66) 45%, rgba(4, 7, 6, 0.54) 100%);
+}
+
+.ambience-pick-me-ups .ambience-layer {
+  background:
+    radial-gradient(circle at 25% 68%, rgba(245, 191, 88, 0.23), transparent 33%),
+    radial-gradient(circle at 76% 31%, rgba(178, 255, 215, 0.17), transparent 36%),
+    linear-gradient(90deg, rgba(4, 7, 6, 0.97) 0%, rgba(42, 33, 12, 0.58) 45%, rgba(4, 7, 6, 0.52) 100%);
+}
+
 .day-part {
   display: block;
   width: 100%;
@@ -480,13 +501,15 @@ html {
   padding: 1.5rem;
   text-decoration: none;
   backdrop-filter: blur(18px);
+  text-align: left;
   transition:
     background 240ms ease,
     border-color 240ms ease,
     transform 240ms ease;
 }
 
-.library-card:hover {
+.library-card:hover,
+.library-card--active {
   border-color: rgba(188, 255, 222, 0.34);
   background:
     radial-gradient(circle at 18% 18%, rgba(188, 255, 222, 0.17), transparent 30%),
@@ -519,7 +542,7 @@ html {
   animation: serenity-drift 5200ms cubic-bezier(0.16, 1, 0.3, 1) both;
   color: rgba(232, 255, 244, 0.46);
   font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(1.05rem, 2vw, 2.05rem);
+  font-size: clamp(0.63rem, 1.2vw, 1.23rem);
   font-style: italic;
   font-weight: 220;
   letter-spacing: 0.01em;
@@ -1092,6 +1115,27 @@ html.light .ambience-cycle .ambience-layer {
     linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(232, 202, 193, 0.54) 45%, rgba(244, 239, 226, 0.32));
 }
 
+html.light .ambience-detox .ambience-layer {
+  background:
+    radial-gradient(circle at 24% 68%, rgba(88, 165, 119, 0.24), transparent 34%),
+    radial-gradient(circle at 76% 30%, rgba(154, 207, 177, 0.26), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(207, 230, 211, 0.54) 45%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ambience-soups .ambience-layer {
+  background:
+    radial-gradient(circle at 27% 70%, rgba(171, 63, 48, 0.23), transparent 34%),
+    radial-gradient(circle at 72% 34%, rgba(220, 139, 76, 0.2), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(235, 203, 178, 0.56) 45%, rgba(244, 239, 226, 0.32));
+}
+
+html.light .ambience-pick-me-ups .ambience-layer {
+  background:
+    radial-gradient(circle at 25% 68%, rgba(204, 158, 62, 0.22), transparent 34%),
+    radial-gradient(circle at 76% 31%, rgba(105, 159, 112, 0.2), transparent 36%),
+    linear-gradient(90deg, rgba(244, 239, 226, 0.9), rgba(234, 221, 178, 0.54) 45%, rgba(244, 239, 226, 0.32));
+}
+
 html.light .ritual-title {
   color: rgba(44, 67, 45, 0.2);
   text-shadow: 0 20px 80px rgba(64, 91, 66, 0.18);
@@ -1131,6 +1175,7 @@ html.light .day-part--active,
 html.light .ritual-track:hover,
 html.light .ritual-track--active,
 html.light .library-card:hover,
+html.light .library-card--active,
 html.light .day-recipe-row:hover,
 html.light .day-recipe-row--active {
   border-color: rgba(67, 107, 73, 0.32);

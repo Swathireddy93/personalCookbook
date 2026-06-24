@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
@@ -9,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 type DayPart = "morning" | "noon" | "evening" | "night";
 type RhythmPart = "weekly" | "cycle";
+type CollectionPart = "detox" | "soups" | "pick-me-ups";
 
 const dayParts: Array<{
   id: DayPart;
@@ -62,16 +62,19 @@ const ritualTracks = [
 
 const recipeCollections = [
   {
+    id: "detox" as const,
     title: "Detox Drinks",
     detail: "Citrus waters, herbal infusions, spice drinks, and mineral-forward resets that can also belong inside daily rituals.",
     href: "/collections/detox-drinks"
   },
   {
+    id: "soups" as const,
     title: "Soups",
     detail: "Broths, rasams, lentil bowls, and warm restorative recipes gathered as their own nourishing library.",
     href: "/collections/soups"
   },
   {
+    id: "pick-me-ups" as const,
     title: "Quick pick me ups",
     detail: "Small lifts for low-energy windows: tonics, snacks, warm cups, and fast rituals that do not need a full meal.",
     href: "/collections/quick-pick-me-ups"
@@ -83,7 +86,9 @@ export default function HomePage() {
   const [activeDay, setActiveDay] = useState<DayPart>("morning");
   const [selectedDay, setSelectedDay] = useState<DayPart | null>(null);
   const [activeRhythm, setActiveRhythm] = useState<RhythmPart | null>(null);
-  const activeAmbience = activeRhythm ?? activeDay;
+  const [activeCollection, setActiveCollection] = useState<CollectionPart | null>(null);
+  const [selectedCollection, setSelectedCollection] = useState<CollectionPart | null>(null);
+  const activeAmbience = activeCollection ?? activeRhythm ?? activeDay;
 
   function handleDayClick(part: (typeof dayParts)[number]) {
     if (selectedDay === part.id) {
@@ -93,7 +98,21 @@ export default function HomePage() {
 
     setActiveDay(part.id);
     setActiveRhythm(null);
+    setActiveCollection(null);
+    setSelectedCollection(null);
     setSelectedDay(part.id);
+  }
+
+  function handleCollectionClick(collection: (typeof recipeCollections)[number]) {
+    if (selectedCollection === collection.id) {
+      router.push(collection.href);
+      return;
+    }
+
+    setActiveCollection(collection.id);
+    setActiveRhythm(null);
+    setSelectedDay(null);
+    setSelectedCollection(collection.id);
   }
 
   return (
@@ -166,6 +185,8 @@ export default function HomePage() {
                 key={track.title}
                 onClick={() => {
                   setActiveRhythm(track.id);
+                  setActiveCollection(null);
+                  setSelectedCollection(null);
                   setSelectedDay(null);
                 }}
                 type="button"
@@ -188,10 +209,16 @@ export default function HomePage() {
           </div>
           <div className="library-grid mt-8">
             {recipeCollections.map((collection) => (
-              <Link className="library-card" href={collection.href} key={collection.title}>
+              <button
+                aria-label={`${collection.title}. Select once to change ambience, select again to open the collection.`}
+                className={`library-card ${activeCollection === collection.id ? "library-card--active" : ""}`}
+                key={collection.title}
+                onClick={() => handleCollectionClick(collection)}
+                type="button"
+              >
                 <h3>{collection.title}</h3>
                 <p>{collection.detail}</p>
-              </Link>
+              </button>
             ))}
           </div>
         </div>
@@ -240,9 +267,9 @@ export default function HomePage() {
       <section className="relative z-10 px-4 py-12 sm:px-6 lg:py-16">
         <div className="relative mx-auto max-w-7xl">
           <div className="serenity-note">
-            <p>Serenity to things I cannot change</p>
+            <p>&ldquo;Serenity to things I cannot change</p>
             <p>Courage to change the things I can</p>
-            <p>Wisdom to know the difference!</p>
+            <p>Wisdom to know the difference!&rdquo;</p>
           </div>
         </div>
       </section>
