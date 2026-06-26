@@ -614,6 +614,380 @@ html {
   mix-blend-mode: soft-light;
 }
 
+.onboarding-content {
+  transition:
+    filter 460ms ease,
+    opacity 460ms ease,
+    transform 460ms ease;
+}
+
+.onboarding-content--locked {
+  filter: blur(10px);
+  opacity: 0.58;
+  pointer-events: none;
+  user-select: none;
+}
+
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 1.1rem;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(156, 255, 216, 0.16), transparent 34%),
+    radial-gradient(circle at 24% 74%, rgba(218, 157, 75, 0.12), transparent 30%),
+    rgba(1, 4, 3, 0.58);
+  backdrop-filter: blur(14px);
+}
+
+.onboarding-overlay--exiting::before {
+  animation: onboarding-grain-diffuse 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.onboarding-overlay::before,
+.onboarding-overlay::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.onboarding-overlay::before {
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(rgba(248, 255, 252, 0.72) 1px, transparent 1px),
+    radial-gradient(rgba(188, 255, 222, 0.34) 1px, transparent 1px);
+  background-position: 0 0, 13px 17px;
+  background-size: 31px 31px, 43px 43px;
+  mix-blend-mode: soft-light;
+}
+
+.onboarding-overlay::after {
+  width: min(42rem, 88vw);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(188, 255, 222, 0.12), transparent 64%);
+  filter: blur(32px);
+}
+
+.onboarding-modal {
+  position: relative;
+  z-index: 1;
+  width: min(35rem, calc(100vw - 2.2rem));
+  max-height: min(88vh, 44rem);
+  overflow: hidden;
+  border: 1px solid rgba(225, 255, 241, 0.14);
+  border-radius: 0.8rem;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(188, 255, 222, 0.1), transparent 30%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+    rgba(4, 7, 6, 0.76);
+  box-shadow:
+    0 36px 120px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: clamp(1.05rem, 3vw, 1.65rem);
+  backdrop-filter: blur(28px);
+}
+
+.onboarding-modal * {
+  min-width: 0;
+}
+
+.onboarding-modal--exiting {
+  animation: onboarding-panel-diffuse 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.onboarding-shimmer {
+  pointer-events: none;
+  position: absolute;
+  inset: -24%;
+  opacity: 0.12;
+  background: linear-gradient(115deg, transparent 36%, rgba(248, 255, 252, 0.36) 50%, transparent 64%);
+  transform: translateX(-22%);
+  animation: onboarding-shimmer 3400ms ease-in-out infinite;
+}
+
+.onboarding-diffusion {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle at 16% 24%, rgba(248, 255, 252, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 20%, rgba(188, 255, 222, 0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 64%, rgba(232, 180, 104, 0.38) 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 80%, rgba(188, 255, 222, 0.34) 0 1px, transparent 2px);
+  background-size: 8rem 8rem, 10rem 10rem, 9rem 9rem, 11rem 11rem;
+  filter: blur(0.2px);
+}
+
+.onboarding-modal--exiting .onboarding-diffusion {
+  animation: onboarding-diffusion 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.onboarding-kicker {
+  position: relative;
+  color: rgba(188, 255, 222, 0.74);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.onboarding-modal h2 {
+  position: relative;
+  margin-top: 0.8rem;
+  color: rgba(248, 255, 252, 0.92);
+  font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.85rem, 4.2vw, 3.15rem);
+  font-weight: 260;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.onboarding-subtitle {
+  position: relative;
+  margin-top: 0.8rem;
+  max-width: 29rem;
+  color: rgba(232, 255, 244, 0.64);
+  font-size: clamp(0.88rem, 1.35vw, 0.98rem);
+  font-weight: 300;
+  line-height: 1.62;
+}
+
+.timezone-command {
+  position: relative;
+  margin-top: 1.1rem;
+}
+
+.timezone-command label {
+  display: block;
+  color: rgba(188, 255, 222, 0.72);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.timezone-search {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.7rem;
+  border: 1px solid rgba(225, 255, 241, 0.14);
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(232, 255, 244, 0.58);
+  padding: 0.72rem 0.85rem;
+}
+
+.timezone-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: rgba(248, 255, 252, 0.9);
+  font: inherit;
+  outline: none;
+}
+
+.timezone-search input::placeholder {
+  color: rgba(232, 255, 244, 0.38);
+}
+
+.timezone-results {
+  display: grid;
+  max-height: min(32vh, 12rem);
+  gap: 0.28rem;
+  margin-top: 0.55rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(188, 255, 222, 0.22) transparent;
+}
+
+.timezone-results::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+.timezone-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.timezone-results::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(188, 255, 222, 0.22);
+}
+
+.timezone-option {
+  border: 1px solid transparent;
+  border-radius: 0.52rem;
+  background: rgba(255, 255, 255, 0.032);
+  color: rgba(248, 255, 252, 0.78);
+  cursor: pointer;
+  font: inherit;
+  padding: 0.62rem 0.76rem;
+  text-align: left;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms ease;
+}
+
+.timezone-option:hover,
+.timezone-option--selected {
+  border-color: rgba(188, 255, 222, 0.26);
+  background: rgba(255, 255, 255, 0.078);
+  color: rgba(248, 255, 252, 0.94);
+  transform: translateY(-1px);
+}
+
+.timezone-option span,
+.timezone-option small {
+  display: block;
+}
+
+.timezone-option span {
+  font-size: 0.88rem;
+  font-weight: 330;
+}
+
+.timezone-option small {
+  margin-top: 0.24rem;
+  color: rgba(232, 255, 244, 0.42);
+  font-size: 0.68rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timezone-empty {
+  color: rgba(232, 255, 244, 0.5);
+  padding: 1rem 0.2rem;
+}
+
+.onboarding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.05rem;
+}
+
+.onboarding-primary,
+.onboarding-secondary {
+  min-height: 2.9rem;
+  border-radius: 999px;
+  padding-inline: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.onboarding-primary {
+  background: rgba(232, 255, 244, 0.86);
+  color: rgba(4, 7, 6, 0.92);
+}
+
+.onboarding-primary:hover {
+  background: rgba(248, 255, 252, 0.96);
+}
+
+.onboarding-secondary {
+  border: 1px solid rgba(225, 255, 241, 0.12);
+  color: rgba(232, 255, 244, 0.68);
+}
+
+.onboarding-secondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(248, 255, 252, 0.9);
+}
+
+@keyframes onboarding-shimmer {
+  0%,
+  48% {
+    transform: translateX(-28%);
+  }
+
+  100% {
+    transform: translateX(28%);
+  }
+}
+
+@keyframes onboarding-diffusion {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  28% {
+    opacity: 0.58;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes onboarding-panel-diffuse {
+  0% {
+    box-shadow:
+      0 36px 120px rgba(0, 0, 0, 0.58),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  100% {
+    box-shadow:
+      0 42px 150px rgba(0, 0, 0, 0.34),
+      0 0 120px rgba(188, 255, 222, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+}
+
+@keyframes onboarding-grain-diffuse {
+  0% {
+    opacity: 0.16;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 520px) {
+  .onboarding-overlay {
+    padding: 0.85rem;
+  }
+
+  .onboarding-modal {
+    width: min(100%, calc(100vw - 1.7rem));
+    max-height: calc(100vh - 1.7rem);
+  }
+
+  .onboarding-actions {
+    display: grid;
+  }
+
+  .onboarding-primary,
+  .onboarding-secondary {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-content,
+  .onboarding-shimmer,
+  .onboarding-diffusion,
+  .timezone-option {
+    animation: none;
+    transition: none;
+  }
+}
+
 .nutrient-webgl {
   isolation: isolate;
   min-height: 500px;
@@ -795,45 +1169,33 @@ html {
   letter-spacing: -0.025em;
 }
 
-.recipe-image-placeholder {
-  display: grid;
-  min-height: clamp(18rem, 38vw, 31rem);
-  place-items: center;
-  margin: clamp(1.2rem, 3vw, 2.4rem) auto 0;
-  padding: clamp(2rem, 5vw, 4rem);
-  text-align: center;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(188, 255, 222, 0.1), transparent 34%),
-    radial-gradient(circle at 36% 32%, rgba(235, 191, 112, 0.08), transparent 30%);
+.ritual-recipe-hero {
+  position: relative;
+  width: min(100%, 48rem);
+  aspect-ratio: 4 / 3;
+  margin: clamp(0.8rem, 2vw, 1.3rem) auto 0;
+  overflow: hidden;
+  background: transparent;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 58%, rgba(0, 0, 0, 0.72) 76%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, #000 58%, rgba(0, 0, 0, 0.72) 76%, transparent 100%);
 }
 
-.recipe-image-placeholder__mark {
-  width: min(7rem, 36vw);
-  aspect-ratio: 1;
-  border: 1px solid rgba(248, 255, 252, 0.22);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(248, 255, 252, 0.11), transparent 34%),
-    radial-gradient(circle at 50% 68%, rgba(188, 255, 222, 0.1), transparent 44%);
-  box-shadow: 0 0 60px rgba(188, 255, 222, 0.12);
+.ritual-recipe-hero::after {
+  display: none;
 }
 
-.recipe-image-placeholder p {
-  margin-top: 1.4rem;
-  color: rgba(248, 255, 252, 0.82);
-  font-size: clamp(1.35rem, 2.3vw, 2rem);
-  font-weight: 260;
-  letter-spacing: -0.035em;
+.ritual-recipe-hero img {
+  object-fit: contain;
 }
 
-.recipe-image-placeholder span {
-  display: block;
-  margin-top: 0.5rem;
-  color: rgba(232, 255, 244, 0.46);
-  font-size: 0.76rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+@media (max-width: 767px) {
+  .ritual-recipe-hero {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    margin-top: 0.8rem;
+  }
 }
+
 .ritual-page-detail__content {
   padding: clamp(1.2rem, 3vw, 2.4rem);
 }
@@ -1230,21 +1592,3 @@ html.light .ritual-page-link {
   color: rgba(38, 65, 43, 0.78);
 }
 
-html.light .recipe-image-placeholder {
-  background:
-    radial-gradient(circle at 50% 50%, rgba(94, 144, 100, 0.12), transparent 34%),
-    radial-gradient(circle at 36% 32%, rgba(202, 139, 48, 0.1), transparent 30%);
-}
-
-html.light .recipe-image-placeholder__mark {
-  border-color: rgba(44, 67, 45, 0.18);
-  box-shadow: 0 0 60px rgba(94, 144, 100, 0.12);
-}
-
-html.light .recipe-image-placeholder p {
-  color: rgba(27, 38, 29, 0.82);
-}
-
-html.light .recipe-image-placeholder span {
-  color: rgba(51, 62, 50, 0.5);
-}

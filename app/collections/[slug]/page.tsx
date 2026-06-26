@@ -35,9 +35,9 @@ export default async function CollectionPage({ params }: { params: Promise<{ slu
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#040706] via-[#040706]/82 to-transparent" />
 
       <section className="relative z-10 mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 lg:pb-20 lg:pt-20">
-        <Link className="ritual-return-link" href="/">
+        <Link className="ritual-return-link" href="/?onboarding=browse">
           <ArrowLeft className="h-4 w-4" />
-          Return home
+          Return to the Archive
         </Link>
 
         <div className="mt-12 max-w-4xl">

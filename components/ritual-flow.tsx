@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Recipe } from "@/data/rituals";
@@ -8,6 +9,7 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
   const [activeRecipe, setActiveRecipe] = useState<number | null>(null);
   const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
   const selectedRecipe = activeRecipe === null ? null : recipes[activeRecipe];
+  const showRecipeImage = selectedRecipe?.ritual === "morning" && selectedRecipe.image.startsWith("/");
 
   if (recipes.length === 0) {
     return (
@@ -41,7 +43,17 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
 
       {selectedRecipe ? (
         <article className="ritual-page-detail">
-          <RecipeImagePlaceholder />
+          {showRecipeImage ? (
+            <figure className="ritual-recipe-hero">
+              <Image
+                alt={`${selectedRecipe.title} cinematic morning ritual image`}
+                fill
+                priority={selectedRecipe.order === 1}
+                sizes="(max-width: 767px) 92vw, (max-width: 1279px) 58vw, 780px"
+                src={selectedRecipe.image}
+              />
+            </figure>
+          ) : null}
           <div className="ritual-page-detail__content">
             <h2>{selectedRecipe.title}</h2>
             <p>{selectedRecipe.summary}</p>
@@ -134,18 +146,6 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
           </div>
         </article>
       ) : null}
-    </div>
-  );
-}
-
-function RecipeImagePlaceholder() {
-  return (
-    <div className="recipe-image-placeholder">
-      <div className="recipe-image-placeholder__mark" />
-      <div>
-        <p>Image coming soon</p>
-        <span>Personal photo or illustration placeholder</span>
-      </div>
     </div>
   );
 }

@@ -32,9 +32,9 @@ export default async function RitualPage({ params }: { params: Promise<{ slug: s
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#040706] via-[#040706]/82 to-transparent" />
 
       <section className="relative z-10 mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 lg:pb-20 lg:pt-20">
-        <Link className="ritual-return-link" href="/">
+        <Link className="ritual-return-link" href="/?onboarding=browse">
           <ArrowLeft className="h-4 w-4" />
-          Return to Four lights
+          Browse Every Ritual
         </Link>
 
         <div className="mt-12 max-w-4xl">
@@ -42,7 +42,7 @@ export default async function RitualPage({ params }: { params: Promise<{ slug: s
             Ritual flow
           </Badge>
           <h1 className="ritual-page-title">{ritual.title}</h1>
-          <p className="home-copy mt-6 max-w-2xl">{ritual.description}</p>
+          <p className="home-copy mt-10 max-w-2xl">{ritual.description}</p>
         </div>
 
         <RitualFlow recipes={recipes} />
