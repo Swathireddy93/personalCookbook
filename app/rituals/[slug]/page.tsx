@@ -41,7 +41,9 @@ export default async function RitualPage({ params }: { params: Promise<{ slug: s
           <Badge className="mb-6 border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] uppercase tracking-[0.34em] text-emerald-50/78 backdrop-blur-md">
             Ritual flow
           </Badge>
-          <h1 className="ritual-page-title">{ritual.title}</h1>
+          <h1 className={`ritual-page-title ${slug === "morning" ? "ritual-page-title--cinematic" : ""}`}>
+            {ritual.title}
+          </h1>
           <p className="home-copy mt-10 max-w-2xl">{ritual.description}</p>
         </div>
 

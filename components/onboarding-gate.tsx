@@ -16,70 +16,65 @@ type OnboardingStatus = "checking" | "waiting" | "prompt" | "active" | "exiting"
 type TimezoneOption = {
   value: string;
   label: string;
+  detail: string;
   searchText: string;
 };
 
-const fallbackTimezones = [
-  "America/Los_Angeles",
-  "America/Denver",
-  "America/Chicago",
-  "America/New_York",
-  "Europe/London",
-  "Europe/Paris",
-  "Asia/Kolkata",
-  "Asia/Tokyo",
-  "Australia/Sydney"
-];
-
-const friendlyTimezoneNames: Record<string, string> = {
-  "America/Los_Angeles": "San Francisco - Pacific Time",
-  "America/New_York": "New York - Eastern Time",
-  "America/Chicago": "Chicago - Central Time",
-  "America/Denver": "Denver - Mountain Time",
-  "Europe/London": "London - Greenwich Mean Time",
-  "Europe/Paris": "Paris - Central European Time",
-  "Asia/Kolkata": "Bangalore - India Standard Time",
-  "Asia/Tokyo": "Tokyo - Japan Standard Time",
-  "Australia/Sydney": "Sydney - Australian Eastern Time"
-};
-
-function getSupportedTimezones() {
-  if (typeof Intl.supportedValuesOf === "function") {
-    return Intl.supportedValuesOf("timeZone");
+const timezoneOptions: TimezoneOption[] = [
+  {
+    value: "America/Los_Angeles",
+    label: "Pacific Time",
+    detail: "Los Angeles • Vancouver • Seattle"
+  },
+  {
+    value: "America/Denver",
+    label: "Mountain Time",
+    detail: "Denver • Phoenix"
+  },
+  {
+    value: "America/Chicago",
+    label: "Central Time",
+    detail: "Chicago • Dallas • Mexico City"
+  },
+  {
+    value: "America/New_York",
+    label: "Eastern Time",
+    detail: "New York • Toronto • Miami"
+  },
+  {
+    value: "Europe/London",
+    label: "Greenwich Mean Time",
+    detail: "London • Dublin"
+  },
+  {
+    value: "Europe/Paris",
+    label: "Central European Time",
+    detail: "Paris • Berlin • Rome"
+  },
+  {
+    value: "Asia/Kolkata",
+    label: "India Standard Time",
+    detail: "India"
+  },
+  {
+    value: "Asia/Tokyo",
+    label: "Japan Standard Time",
+    detail: "Japan"
+  },
+  {
+    value: "Australia/Sydney",
+    label: "Australian Eastern Time",
+    detail: "Sydney • Melbourne"
+  },
+  {
+    value: "Pacific/Auckland",
+    label: "New Zealand Time",
+    detail: "Auckland"
   }
-
-  return fallbackTimezones;
-}
-
-function getDetectedTimezone() {
-  try {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
-  } catch {
-    return "America/Los_Angeles";
-  }
-}
-
-function formatTimezoneLabel(timeZone: string) {
-  if (friendlyTimezoneNames[timeZone]) {
-    return friendlyTimezoneNames[timeZone];
-  }
-
-  const city = timeZone.split("/").pop()?.replace(/_/g, " ") ?? timeZone;
-
-  try {
-    const timeZoneName =
-      new Intl.DateTimeFormat("en-US", {
-        timeZone,
-        timeZoneName: "long"
-      })
-        .formatToParts(new Date())
-        .find((part) => part.type === "timeZoneName")?.value ?? timeZone;
-
-    return `${city} - ${timeZoneName}`;
-  } catch {
-    return city;
-  }
-}
+].map((option) => ({
+  ...option,
+  searchText: `${option.label} ${option.detail} ${option.value} ${option.value.replace(/[_/]/g, " ")}`.toLowerCase()
+}));
 
 function getHourInTimezone(timeZone: string) {
   let hourPart: string | undefined;
@@ -142,44 +137,23 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
   const modalRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<OnboardingStatus>("checking");
-  const [selectedTimezone, setSelectedTimezone] = useState("America/Los_Angeles");
+  const [selectedTimezone, setSelectedTimezone] = useState("");
   const [query, setQuery] = useState("");
   const [isSearchingTimezone, setIsSearchingTimezone] = useState(false);
-
-  const timezoneOptions = useMemo<TimezoneOption[]>(() => {
-    return getSupportedTimezones().map((timeZone) => {
-      const label = formatTimezoneLabel(timeZone);
-      const searchText = `${label} ${timeZone} ${timeZone.replace(/[_/]/g, " ")}`.toLowerCase();
-
-      return {
-        value: timeZone,
-        label,
-        searchText
-      };
-    });
-  }, []);
 
   const visibleOptions = useMemo(() => {
     const normalizedQuery = isSearchingTimezone ? query.trim().toLowerCase() : "";
     if (!normalizedQuery) {
-      const selected = timezoneOptions.find((option) => option.value === selectedTimezone);
-      const priority = ["America/Los_Angeles", "Asia/Kolkata", "Europe/London", "Asia/Tokyo", "Australia/Sydney"]
-        .map((value) => timezoneOptions.find((option) => option.value === value))
-        .filter((option): option is TimezoneOption => Boolean(option));
-
-      return [selected, ...priority]
-        .filter((option): option is TimezoneOption => Boolean(option))
-        .filter((option, index, options) => options.findIndex((item) => item.value === option.value) === index)
-        .slice(0, 8);
+      return timezoneOptions;
     }
 
     return timezoneOptions
       .filter((option) => option.searchText.includes(normalizedQuery))
       .slice(0, 12);
-  }, [isSearchingTimezone, query, selectedTimezone, timezoneOptions]);
+  }, [isSearchingTimezone, query]);
 
   const selectedTimezoneLabel =
-    timezoneOptions.find((option) => option.value === selectedTimezone)?.label ?? selectedTimezone;
+    timezoneOptions.find((option) => option.value === selectedTimezone)?.label ?? "";
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -202,16 +176,12 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
       return;
     }
 
-    const detectedTimezone = getDetectedTimezone();
-    const supportedTimezone = timezoneOptions.some((option) => option.value === detectedTimezone)
-      ? detectedTimezone
-      : "America/Los_Angeles";
     const savedChoice = shouldResetOnboarding ? null : (readStorage(ONBOARDING_CHOICE_KEY) as OnboardingChoice | null);
     const savedTimezone = shouldResetOnboarding ? null : readStorage(ONBOARDING_TIMEZONE_KEY);
     const supportedSavedTimezone = timezoneOptions.some((option) => option.value === savedTimezone);
     const activeSavedTimezone = supportedSavedTimezone ? savedTimezone : null;
 
-    setSelectedTimezone(activeSavedTimezone || supportedTimezone);
+    setSelectedTimezone(activeSavedTimezone || "");
 
     if (savedChoice === "guided" && activeSavedTimezone) {
       router.replace(routeForHour(getHourInTimezone(activeSavedTimezone)));
@@ -227,7 +197,7 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
     const timer = window.setTimeout(() => setStatus("prompt"), reduceMotion ? 450 : HERO_SETTLE_DELAY);
 
     return () => window.clearTimeout(timer);
-  }, [reduceMotion, router, timezoneOptions]);
+  }, [reduceMotion, router]);
 
   useEffect(() => {
     if (status !== "active" && status !== "prompt") return;
@@ -249,6 +219,8 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
   }
 
   function continueWithMyDay() {
+    if (!selectedTimezone) return;
+
     writeStorage(ONBOARDING_CHOICE_KEY, "guided");
     writeStorage(ONBOARDING_TIMEZONE_KEY, selectedTimezone);
     setStatus("exiting");
@@ -397,7 +369,7 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
                             type="button"
                           >
                             <span>{option.label}</span>
-                            <small>{option.value}</small>
+                            <small>{option.detail}</small>
                           </button>
                         ))
                       ) : (
@@ -407,7 +379,12 @@ export function OnboardingGate({ children }: { children: ReactNode }) {
                   </div>
 
                   <div className="onboarding-actions">
-                    <Button className="onboarding-primary" onClick={continueWithMyDay} type="button">
+                    <Button
+                      className="onboarding-primary"
+                      disabled={!selectedTimezone}
+                      onClick={continueWithMyDay}
+                      type="button"
+                    >
                       Continue With My Day
                     </Button>
                     <Button className="onboarding-secondary" onClick={browseEveryRitual} type="button" variant="ghost">

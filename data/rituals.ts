@@ -210,23 +210,38 @@ export const recipes: Recipe[] = [
     ],
     similarRecipes: [
       {
-        title: "CCF drink",
-        subtitle: "Cumin, Coriander & Fennel Seeds",
+        title: "Clove Therapy",
+        subtitle: "Hot water brewed with cloves, finished with honey, lemon, turmeric, and black pepper",
         ingredients: [
           {
-            name: "Cumin Seeds",
-            ayurvedic: "Often used to bring warmth and digestive fire without making the drink feel aggressive.",
-            scientific: "Contains aromatic compounds and minerals; commonly studied in the context of digestion and glucose markers."
+            name: "Cloves",
+            ayurvedic: "Traditionally used as a warming spice with a strong aromatic quality; a few cloves can be brewed and gently reheated 3-4 times.",
+            scientific: "Cloves contain eugenol and other phenolic compounds; food-level use is best framed as flavor, aroma, and polyphenol exposure."
           },
           {
-            name: "Coriander Seeds",
-            ayurvedic: "Traditionally used as a gentler, cooling balance within the blend.",
-            scientific: "Provides plant compounds such as linalool and polyphenols; evidence is still emerging for specific outcomes."
+            name: "Hot Water",
+            ayurvedic: "Acts as the warm carrier for the spice infusion and keeps the ritual gentle before breakfast.",
+            scientific: "Supports hydration consistency; warmth can make the drink easier to sip slowly after waking."
           },
           {
-            name: "Fennel Seeds",
-            ayurvedic: "Used after or between meals for sweetness, lightness, and digestive comfort.",
-            scientific: "Contains anethole-rich volatile oils; studied mostly for digestive comfort and antioxidant activity."
+            name: "Honey",
+            ayurvedic: "Used sparingly once the drink cools from hot to warm, adding softness and making the ritual easier to return to.",
+            scientific: "Adds simple carbohydrates and phenolic compounds; portion size matters and it should not be added to boiling water."
+          },
+          {
+            name: "Lemon",
+            ayurvedic: "Adds brightness and a stimulating edge to the warm clove base.",
+            scientific: "Provides vitamin C, citric acid, and citrus polyphenols that complement the warm hydration cue."
+          },
+          {
+            name: "Turmeric",
+            ayurvedic: "Adds a golden, warming quality often used in morning spice rituals.",
+            scientific: "Contains curcuminoids; benefits are most responsibly discussed with bioavailability and dose in mind."
+          },
+          {
+            name: "Black Pepper Powder",
+            ayurvedic: "Adds heat and sharpness in a very small amount.",
+            scientific: "Contains piperine, which can increase curcumin bioavailability; use a pinch rather than a heavy dose."
           }
         ]
       }
@@ -404,6 +419,163 @@ export const recipes: Recipe[] = [
       { title: "Finish", body: "Top with dry fruits, nuts, and cardamom." }
     ],
     notes: "This is the option I imagine for mornings that need warmth, patience, and something more rooted."
+  },
+  {
+    slug: "garden-egg-toast",
+    title: "Garden & Egg Toast",
+    ritual: "morning",
+    order: 5,
+    image: "/garden-egg-toast.png",
+    summary: "A savory toast with egg, avocado, arugula, chili garlic oil, and a creamy-sweet sauce for a more substantial morning plate.",
+    diet: ["Vegetarian", "High Protein"],
+    goals: ["Energy", "Focus", "Recovery"],
+    collections: ["quick-pick-me-ups"],
+    ingredients: [
+      {
+        name: "Hard-Boiled Eggs",
+        nutrition: "Complete protein, choline, vitamin B12, selenium",
+        why: "Creates the protein-rich base and makes the toast feel sustaining.",
+        rationale: "Eggs provide high-quality protein and choline, a nutrient involved in cell membranes and neurotransmitter pathways."
+      },
+      {
+        name: "Avocado",
+        nutrition: "Monounsaturated fat, potassium, fiber, folate",
+        why: "Adds creaminess, satiety, and a soft green base.",
+        rationale: "Avocado contributes unsaturated fats and fiber, which can slow digestion and support a steadier meal."
+      },
+      {
+        name: "Onion",
+        nutrition: "Prebiotic fibers, quercetin, sulfur compounds",
+        why: "Adds sharpness and a small savory bite.",
+        rationale: "Onions contain fructans and polyphenols; tolerance varies, so the finely chopped amount keeps it controlled."
+      },
+      {
+        name: "Tomato",
+        nutrition: "Lycopene, vitamin C, potassium",
+        why: "Adds acidity, moisture, and a garden-fresh note.",
+        rationale: "Tomatoes contribute carotenoids such as lycopene along with vitamin C and fluid."
+      },
+      {
+        name: "Chick-fil-A-Style Sauce",
+        nutrition: "Flavor, fats, carbohydrates depending on blend",
+        why: "Adds the creamy, sweet-savory note that makes the toast feel complete.",
+        rationale: "Best treated as a small flavor accent; a mayonnaise, barbecue sauce, and honey mustard blend changes calories and sugar depending on portion."
+      },
+      {
+        name: "Arugula",
+        nutrition: "Vitamin K, folate, glucosinolates",
+        why: "Adds peppery freshness and a leafy finish.",
+        rationale: "Arugula is a cruciferous leafy green that contributes micronutrients and bitter compounds."
+      },
+      {
+        name: "Garlic Aioli",
+        nutrition: "Fats, garlic aromatics",
+        why: "Adds a creamy aromatic layer over the toast.",
+        rationale: "Garlic compounds are studied for cardiometabolic pathways, while aioli should stay a light drizzle."
+      },
+      {
+        name: "Chili Garlic Oil",
+        nutrition: "Capsaicin, garlic aromatics, fats",
+        why: "Adds heat and a finishing ritual.",
+        rationale: "Capsaicin can increase sensory warmth; portion matters because oil is energy dense."
+      },
+      {
+        name: "Pink Sea Salt and Black Pepper",
+        nutrition: "Sodium, trace minerals, piperine",
+        why: "Sharpens the avocado-egg mixture and brings the flavors together.",
+        rationale: "Salt supports flavor but should be portioned; black pepper provides piperine and aromatic bite."
+      },
+      {
+        name: "Sourdough or Multigrain Toast",
+        nutrition: "Carbohydrates, fiber depending on bread, B vitamins",
+        why: "Creates the crisp foundation and makes the recipe feel like a meal.",
+        rationale: "Sourdough fermentation and whole grains can support texture, flavor, and fiber depending on the bread."
+      },
+      {
+        name: "Chopped Walnuts",
+        nutrition: "ALA omega-3, magnesium, copper, polyphenols",
+        why: "Optional crunch that makes the toast more textured and grounding.",
+        rationale: "Walnuts contribute plant omega-3 fats and minerals; use a small sprinkle for crunch."
+      }
+    ],
+    ingredientBenefits: [
+      {
+        name: "Hard-Boiled Eggs",
+        ayurvedic: "Grounding and substantial, best balanced here with greens, spice, and acidity.",
+        scientific: "A compact source of complete protein, choline, B12, and selenium."
+      },
+      {
+        name: "Avocado",
+        ayurvedic: "Soft, rich, and nourishing; the chili oil, arugula, onion, and lemon-like acidity from tomato help keep it lively.",
+        scientific: "Adds monounsaturated fat, potassium, folate, and fiber for satiety."
+      },
+      {
+        name: "Onion",
+        ayurvedic: "Adds sharpness and heat in a small amount, waking up the creamy base.",
+        scientific: "Provides sulfur compounds, quercetin, and prebiotic fibers, though tolerance is individual."
+      },
+      {
+        name: "Tomato",
+        ayurvedic: "Adds brightness and moisture so the toast does not feel too heavy.",
+        scientific: "Contributes vitamin C, potassium, and lycopene-rich carotenoids."
+      },
+      {
+        name: "Chick-fil-A-Style Sauce",
+        ayurvedic: "Used as a small pleasure note rather than the center of the recipe.",
+        scientific: "Works mainly as a flavor bridge; portion size shapes sugar, fat, and sodium impact."
+      },
+      {
+        name: "Arugula",
+        ayurvedic: "Peppery greens bring lift and contrast to egg and avocado.",
+        scientific: "A leafy cruciferous green with vitamin K, folate, and glucosinolates."
+      },
+      {
+        name: "Garlic Aioli",
+        ayurvedic: "Adds pungency and richness; a thin drizzle keeps it from becoming heavy.",
+        scientific: "Garlic adds aromatic sulfur compounds, while aioli contributes fats."
+      },
+      {
+        name: "Chili Garlic Oil",
+        ayurvedic: "Adds heat and movement as a finishing accent.",
+        scientific: "Capsaicin and garlic aromatics add sensory heat; oil quantity should stay modest."
+      },
+      {
+        name: "Pink Sea Salt and Black Pepper",
+        ayurvedic: "Salt and pepper sharpen the dish and help the flavors feel awake.",
+        scientific: "Salt improves flavor perception; black pepper contributes piperine and aromatic compounds."
+      },
+      {
+        name: "Sourdough or Multigrain Toast",
+        ayurvedic: "A crisp, warm base makes the richer topping feel structured.",
+        scientific: "Provides carbohydrates for energy; whole-grain versions add more fiber and micronutrients."
+      },
+      {
+        name: "Chopped Walnuts",
+        ayurvedic: "Optional crunch and richness for mornings that need more grounding.",
+        scientific: "Adds ALA omega-3 fats, magnesium, copper, and polyphenols."
+      }
+    ],
+    benefits: [
+      { label: "Energy", icon: "energy", detail: "Protein, fat, and toast make this a more sustaining morning option." },
+      { label: "Focus", icon: "focus", detail: "Choline from eggs and steady meal structure support a focused start." },
+      { label: "Recovery", icon: "rhythm", detail: "Protein, minerals, and fats make it useful after active mornings." }
+    ],
+    science: {
+      strength: "Moderate",
+      mechanism: "Protein and fats increase satiety, while whole-grain toast and vegetables add carbohydrates, fiber, and micronutrients.",
+      summary: "This is best framed as a balanced savory breakfast rather than a single-ingredient intervention. Eggs bring complete protein and choline, avocado and walnuts add unsaturated fats, greens and tomato add micronutrients, and toast provides the carbohydrate base.\n\nThe sauces are included as flavor accents. Keeping them thin and intentional helps preserve the balance of the recipe.",
+      takeaways: ["Use two eggs for protein.", "Keep sauces as a drizzle.", "Choose sourdough or multigrain bread based on tolerance and preference."]
+    },
+    prep: [
+      { title: "Toast the bread", body: "Lightly butter two slices of sourdough or multigrain bread, then toast until golden and crisp." },
+      { title: "Mash the base", body: "Roughly mash the hard-boiled eggs and ripe avocado together in a bowl." },
+      { title: "Season", body: "Season with pink sea salt and freshly ground black pepper." },
+      { title: "Fold in sauce", body: "Fold in the Chick-fil-A-style sauce, or a small blend of mayonnaise, barbecue sauce, and honey mustard, until evenly combined." },
+      { title: "Add vegetables", body: "Add the finely chopped onion and tomato, then gently mix." },
+      { title: "Build the toast", body: "Spread the egg-avocado mixture generously over the toasted bread." },
+      { title: "Finish", body: "Drizzle with garlic aioli and chili garlic oil, then top with arugula and optional chopped walnuts." }
+    ],
+    notes: "I return to this when I want breakfast to feel abundant but still fresh: creamy egg and avocado, sharp onion, peppery greens, heat from chili oil, and the crispness of toast holding it all together."
   },
   {
     slug: "matcha-focus-tonic",

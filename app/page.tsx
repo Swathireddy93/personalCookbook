@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { NutrientWebGL } from "@/components/nutrient-webgl";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { Badge } from "@/components/ui/badge";
@@ -89,14 +89,18 @@ export default function HomePage() {
   const [activeRhythm, setActiveRhythm] = useState<RhythmPart | null>(null);
   const [activeCollection, setActiveCollection] = useState<CollectionPart | null>(null);
   const [selectedCollection, setSelectedCollection] = useState<CollectionPart | null>(null);
+  const selectedDayRef = useRef<DayPart | null>(null);
+  const selectedCollectionRef = useRef<CollectionPart | null>(null);
   const activeAmbience = activeCollection ?? activeRhythm ?? activeDay;
 
   function handleDayClick(part: (typeof dayParts)[number]) {
-    if (selectedDay === part.id) {
+    if (selectedDayRef.current === part.id) {
       router.push(part.href);
       return;
     }
 
+    selectedDayRef.current = part.id;
+    selectedCollectionRef.current = null;
     setActiveDay(part.id);
     setActiveRhythm(null);
     setActiveCollection(null);
@@ -105,11 +109,13 @@ export default function HomePage() {
   }
 
   function handleCollectionClick(collection: (typeof recipeCollections)[number]) {
-    if (selectedCollection === collection.id) {
+    if (selectedCollectionRef.current === collection.id) {
       router.push(collection.href);
       return;
     }
 
+    selectedCollectionRef.current = collection.id;
+    selectedDayRef.current = null;
     setActiveCollection(collection.id);
     setActiveRhythm(null);
     setSelectedDay(null);
@@ -186,6 +192,8 @@ export default function HomePage() {
                 className={`ritual-track ${activeRhythm === track.id ? "ritual-track--active" : ""}`}
                 key={track.title}
                 onClick={() => {
+                  selectedDayRef.current = null;
+                  selectedCollectionRef.current = null;
                   setActiveRhythm(track.id);
                   setActiveCollection(null);
                   setSelectedCollection(null);

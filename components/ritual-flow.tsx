@@ -2,14 +2,35 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Recipe } from "@/data/rituals";
 
 export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
-  const [activeRecipe, setActiveRecipe] = useState<number | null>(null);
+  const isMorningRitual = recipes[0]?.ritual === "morning";
+  const detailRef = useRef<HTMLElement>(null);
+  const [activeRecipe, setActiveRecipe] = useState<number | null>(isMorningRitual ? 0 : null);
   const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
   const selectedRecipe = activeRecipe === null ? null : recipes[activeRecipe];
   const showRecipeImage = selectedRecipe?.ritual === "morning" && selectedRecipe.image.startsWith("/");
+  const papayaSproutsIndex = recipes.findIndex((recipe) => recipe.slug === "papaya-sprouts");
+
+  function showRecipe(index: number) {
+    setActiveRecipe(index);
+    setShowSimilarRecipes(false);
+    window.setTimeout(() => {
+      detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  }
+
+  useEffect(() => {
+    if (!isMorningRitual || !detailRef.current) return;
+
+    const scrollTimer = window.setTimeout(() => {
+      detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 1650);
+
+    return () => window.clearTimeout(scrollTimer);
+  }, [isMorningRitual]);
 
   if (recipes.length === 0) {
     return (
@@ -28,8 +49,7 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
               className={`ritual-page-row ${activeRecipe === index ? "ritual-page-row--active" : ""}`}
               key={recipe.slug}
               onClick={() => {
-                setActiveRecipe(index);
-                setShowSimilarRecipes(false);
+                showRecipe(index);
               }}
               type="button"
             >
@@ -42,7 +62,7 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
       </aside>
 
       {selectedRecipe ? (
-        <article className="ritual-page-detail">
+        <article className="ritual-page-detail" ref={detailRef}>
           {showRecipeImage ? (
             <figure className="ritual-recipe-hero">
               <Image
@@ -102,6 +122,27 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
               ))}
             </div>
 
+            {selectedRecipe.prep.length ? (
+              <div className="ritual-page-prep">
+                <h3>Method</h3>
+                <ol>
+                  {selectedRecipe.prep.map((step) => (
+                    <li key={step.title}>
+                      <strong>{step.title}</strong>
+                      <span>{step.body}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
+
+            {selectedRecipe.notes ? (
+              <div className="ritual-page-notes">
+                <h3>Why I Return to It</h3>
+                <p>{selectedRecipe.notes}</p>
+              </div>
+            ) : null}
+
             {selectedRecipe.similarRecipes?.length ? (
               <section className="similar-recipes">
                 <button
@@ -110,7 +151,7 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
                   onClick={() => setShowSimilarRecipes((open) => !open)}
                   type="button"
                 >
-                  Open similar recipes
+                  Experience similar warm water rituals
                 </button>
                 {showSimilarRecipes ? (
                   <div className="similar-recipes__grid">
@@ -138,6 +179,10 @@ export function RitualFlow({ recipes }: { recipes: Recipe[] }) {
                   </div>
                 ) : null}
               </section>
+            ) : selectedRecipe.slug === "berries-dark-chocolate" && papayaSproutsIndex >= 0 ? (
+              <button className="ritual-page-link ritual-page-link--button" onClick={() => showRecipe(papayaSproutsIndex)} type="button">
+                Continue to Papaya & Sprouts
+              </button>
             ) : (
               <Link className="ritual-page-link" href={`/recipes/${selectedRecipe.slug}`}>
                 Open full recipe
